@@ -1,0 +1,29 @@
+main
+toma argumentos
+hace la matriz (si falla: error), 
+extrae las flags, 
+fn static para contar y validar los elementos de la matriz(si no funciona libera cada elemento de la matriz completa e imprime error), 
+luego con otra fn static rellena y chequea un string (si no funciona libera cada elemento de la matriz completa e imprime error) 
+
+Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
+
+hay 6 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.
+
+parse: matrix + revisa espacios o tabs o saltos de linea(los convierte todos a 1 espacio, no los toma como error), extract_flags + devuelve el tipo de flag y free_matrix.
+
+valid: is_valid_number, aqui la matriz ya no tiene flags, y revisa q solo haya numeros validos, sino da error. luego el atol para castear y ver q no desborde, si falla da error. Y por ultimo mira los duplicados, si hay, error.
+
+
+en este caso he puesto que si hay varias flags de estrategia se quede con la ultima, no lo toma como error.
+
+ahora podemos calcular el indice de desorden y sacar los indices del array final. luego vemos la estructura de datos de la lista.
+
+entonces:
+calcular el indice de desorden (podemos ver si esta ordenado en este punto y nos ahorramos calculo, je) solo habria q ver que hacer si pusieron --bench,
+la indexacion,
+definir tipo de dato (hacerlo básico pues podemos agregarle caracteristicas a medida que necesitemos), 
+llenar con el valor los nodos del stack A, 
+agregar el indice a los nodos, 
+generar las operaciones con listas de forma genérica, 
+elegir los algoritmos y
+ver los tipos de salida segun los flags.
