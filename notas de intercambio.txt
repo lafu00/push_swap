@@ -7,7 +7,7 @@ luego con otra fn static rellena y chequea un string (si no funciona libera cada
 
 Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
 
-hay 6 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.
+hay 5 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.
 
 parse: matrix + revisa espacios o tabs o saltos de linea(los convierte todos a 1 espacio, no los toma como error), extract_flags + devuelve el tipo de flag y free_matrix.
 
