@@ -25,5 +25,7 @@ int		extract_flags(char **total);
 int		is_valid_number(char **matrix);
 long	ft_atol(const char *str, int *error);
 int		if_duplicates(int *array, int size);
+double	calc_disorder(int *temp, int size);
+int		*calc_index(int *temp, int size);
 
 #endif
