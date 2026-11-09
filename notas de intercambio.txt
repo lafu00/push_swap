@@ -1,11 +1,13 @@
 main
-toma argumentos
-hace la matriz (si falla: error), 
-extrae las flags, 
-fn static para contar y validar los elementos de la matriz(si no funciona libera cada elemento de la matriz completa e imprime error), 
-luego con otra fn static rellena y chequea un string (si no funciona libera cada elemento de la matriz completa e imprime error) 
-
-Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
+-----
+-toma argumentos
+-hace la matriz (si falla: error), 
+-extrae las flags, 
+-fn static para contar y validar los elementos de la matriz(si no funciona libera cada elemento de la matriz completa e imprime error), 
+-luego con otra fn static rellena y chequea un string (si no funciona libera cada elemento de la matriz completa e imprime error) 
+-Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
+-calcula el desorden
+-genera el array de indices
 
 ---hay 5 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.-- Ahora hay 7, 2 mas en un archivo extra: util_calc para calcular el desorden y los indices.
 
