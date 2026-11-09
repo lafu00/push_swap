@@ -7,23 +7,23 @@ luego con otra fn static rellena y chequea un string (si no funciona libera cada
 
 Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
 
-hay 5 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.
+---hay 5 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.-- Ahora hay 7, 2 mas en un archivo extra: util_calc para calcular el desorden y los indices.
 
 parse: matrix + revisa espacios o tabs o saltos de linea(los convierte todos a 1 espacio, no los toma como error), extract_flags + devuelve el tipo de flag y free_matrix.
 
 valid: is_valid_number, aqui la matriz ya no tiene flags, y revisa q solo haya numeros validos, sino da error. luego el atol para castear y ver q no desborde, si falla da error. Y por ultimo mira los duplicados, si hay, error.
 
+calc: calc_disorder (da un decimal usando la formula del subject) y calc_index (da un array de indices)
 
-en este caso he puesto que si hay varias flags de estrategia se quede con la ultima, no lo toma como error.
+----en este caso he puesto que si hay varias flags de estrategia se quede con la ultima, no lo toma como error.---- Ahora ya da error si hay 2 flags, iguales o distintas o 2 bench.
 
-ahora podemos calcular el indice de desorden y sacar los indices del array final. luego vemos la estructura de datos de la lista.
+---calcular el indice de desorden (ver si es cero que pasa si pusieron flag de bench) y sacar los indices del array final.--- Ya se pueden calcular.
 
-entonces:
-calcular el indice de desorden (podemos ver si esta ordenado en este punto y nos ahorramos calculo, je) solo habria q ver que hacer si pusieron --bench,
-la indexacion,
+Ahora hay q ver la estructura de datos de la lista.
+
+to do's:
 definir tipo de dato (hacerlo básico pues podemos agregarle caracteristicas a medida que necesitemos), 
-llenar con el valor los nodos del stack A, 
-agregar el indice a los nodos, 
+crear, llenar con el valor y el indice los nodos del stack A, 
 generar las operaciones con listas de forma genérica, 
 elegir los algoritmos y
 ver los tipos de salida segun los flags.
