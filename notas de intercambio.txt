@@ -22,6 +22,7 @@ calc: calc_disorder (da un decimal usando la formula del subject) y calc_index (
 ---calcular el indice de desorden (ver si es cero que pasa si pusieron flag de bench) y sacar los indices del array final.--- Ya se pueden calcular.
 
 Ahora hay q ver la estructura de datos de la lista.
+--- De lo que estuve mirando en otro proyectos y la foto esa q te mande, se recomiendan hacer 2 estructuras, la de nodo con value, index, next y prev para q sea doblemente enlazada. Y otra estructura, la de stack, con top_a, top_b, size_a, size_b, strategy, bench_mode, disorder_index, contador_operaciones y estadisticas_operaciones (las 11 operaciones que se muestran en el bench).
 
 to do's:
 definir tipo de dato (hacerlo básico pues podemos agregarle caracteristicas a medida que necesitemos), 
