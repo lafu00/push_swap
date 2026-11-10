@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/10 00:10:28 by leticiro          #+#    #+#             */
-/*   Updated: 2026/11/10 01:18:16 by leticiro         ###   ########.fr       */
+/*   Created: 2026/11/10 00:10:28 by rehlich           #+#    #+#             */
+/*   Updated: 2026/11/10 12:59:51 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ t_node	*new_node(int value, int index)
 
 void	add_back(t_stack *s, t_node *n)
 {
-	if (!s->top)
+	if (!s->top_a)
 	{
-		s->top = n;
+		s->top_a = n;
 		s->last = n;
 	}
 	else
@@ -39,7 +39,7 @@ void	add_back(t_stack *s, t_node *n)
 		n->prev = s->last;
 		s->last = n;
 	}
-	s->size++;
+	s->size_a++;
 }
 
 t_stack	*build_stack(int *temp, int *index_array, int size)
@@ -51,9 +51,10 @@ t_stack	*build_stack(int *temp, int *index_array, int size)
 	s = malloc(sizeof(t_stack));
 	if (!s)
 		return (NULL);
-	s->top = NULL;
+	s->top_a = NULL;
+	s->top_b = NULL;
 	s->last = NULL;
-	s->size = 0;
+	s->size_a = 0;
 	i = 0;
 	while (i < size)
 	{
