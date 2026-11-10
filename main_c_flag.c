@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main_c_flag.c                                     :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/05 18:17:49 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/09 00:48:36 by rehlich         ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   main_c_flag.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/05 18:17:49 by rehlich           #+#    #+#             */
+/*   Updated: 2026/11/10 02:58:11 by leticiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int argc, char **argv)
 	int		i;
 	int		*index_array;
 	double	disorder;
+	t_stack	*stack_a;
 
 	if (argc == 1)
 		return (0);
@@ -81,6 +82,10 @@ int	main(int argc, char **argv)
 	index_array = calc_index(temp, size);
 	if (!index_array)
 		return (free(temp), free_matrix(total), write(2, "Error\n", 6), 1);
+	stack_a = build_stack(temp, index_array, size);
+	if (!stack_a)
+    	return (free(index_array), free(temp), free_matrix(total),
+        	write(2, "Error\n", 6), 1);
 	i = 0;
 	printf("Flag: %i\n", flag);
 	printf("Elementos en el stack: %i\n", size);
@@ -91,6 +96,8 @@ int	main(int argc, char **argv)
 		free(total[i]);
 		i++;
 	}
+	print_stack(stack_a);
+	free_stack(stack_a);
 	free(index_array);
 	free(temp);
 	free_matrix(total);

@@ -8,6 +8,7 @@ main
 -Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
 -calcula el desorden
 -genera el array de indices
+-crea la pila con sus números ya validados y sus índices.
 
 ---hay 5 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.-- Ahora hay 7, 2 mas en un archivo extra: util_calc para calcular el desorden y los indices.
 
@@ -23,10 +24,20 @@ calc: calc_disorder (da un decimal usando la formula del subject) y calc_index (
 
 Ahora hay q ver la estructura de datos de la lista.
 --- De lo que estuve mirando en otro proyectos y la foto esa q te mande, se recomiendan hacer 2 estructuras, la de nodo con value, index, next y prev para q sea doblemente enlazada. Y otra estructura, la de stack, con top_a, top_b, size_a, size_b, strategy, bench_mode, disorder_index, contador_operaciones y estadisticas_operaciones (las 11 operaciones que se muestran en el bench).
+----- A las funciones anteriores añado la estructura de datos del stack (t_node, t_stack) y la creación del stack A 
+con new_node(), add_back(), build_stack(), free_stack()
+        -----funcion para imprimir la pila y debugear????? No debe entregarse
 
-to do's:
-definir tipo de dato (hacerlo básico pues podemos agregarle caracteristicas a medida que necesitemos), 
-crear, llenar con el valor y el indice los nodos del stack A, 
+Estructura de datos de la lista:
+----------------------------------------
+- tipo de dato basico definido: t_node y t_stack
+- stack A definido como lista enlazada doble
+- cada nodo guarda valor + índice
+- se construye en orden de entrada
+- se libera correctamente
+
+to do´s: 
+
 generar las operaciones con listas de forma genérica, 
 elegir los algoritmos y
 ver los tipos de salida segun los flags.
