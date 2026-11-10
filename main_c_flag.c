@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_c_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/05 18:17:49 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/10 02:58:11 by leticiro         ###   ########.fr       */
+/*   Updated: 2026/11/10 12:24:34 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ int	main(int argc, char **argv)
 		return (free(temp), free_matrix(total), write(2, "Error\n", 6), 1);
 	stack_a = build_stack(temp, index_array, size);
 	if (!stack_a)
-    	return (free(index_array), free(temp), free_matrix(total),
-        	write(2, "Error\n", 6), 1);
+		return (free(index_array), free(temp), free_matrix(total), write(2, "Error\n", 6), 1);
 	i = 0;
 	printf("Flag: %i\n", flag);
 	printf("Elementos en el stack: %i\n", size);
@@ -93,11 +92,8 @@ int	main(int argc, char **argv)
 	while (total[i])
 	{
 		printf("Total Indice: %s %i\n", total[i], index_array[i]);
-		free(total[i]);
 		i++;
 	}
-	print_stack(stack_a);
-	free_stack(stack_a);
 	free(index_array);
 	free(temp);
 	free_matrix(total);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:13:18 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/10 00:09:27 by leticiro         ###   ########.fr       */
+/*   Updated: 2026/11/10 12:59:10 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,16 @@ typedef struct s_node
 
 typedef struct s_stack
 {
-	t_node	*top;
+	t_node	*top_a;
+	t_node	*top_b;
 	t_node	*last;
-	int		size;
+	int		size_a;
+	int		size_b;
+	long	count_op;
+	long	static_op[11];
+	int		bench_mode;
+	int		strategy;
+	double	disorder;
 }	t_stack;
 
 char	**matrix(int argc, char **argv);
