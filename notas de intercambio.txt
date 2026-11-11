@@ -38,6 +38,6 @@ Estructura de datos de la lista:
 
 to do´s: 
 
-generar las operaciones con listas de forma genérica, 
+generar las operaciones con listas de forma genérica (swap esta, hay q mejorar el entendimiento del manejo de listas y terminar los otros movimientos).
 elegir los algoritmos y
 ver los tipos de salida segun los flags.
