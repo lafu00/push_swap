@@ -35,7 +35,7 @@ typedef struct s_stack
 	int		size_a;
 	int		size_b;
 	long	count_op;
-	long	static_op[11];
+	long	stat_op[11];
 	int		bench_mode;
 	int		strategy;
 	double	disorder;
@@ -54,5 +54,8 @@ void	add_back(t_stack *s, t_node *n);
 t_stack	*build_stack(int *values, int *indexes, int size);
 void	free_stack(t_stack *s);
 void	print_stack(t_stack *s);
+void	sa(t_stack *stack, int silence);
+void	sb(t_stack *stack, int silence);
+void	ss(t_stack *stack)
 
 #endif
