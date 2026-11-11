@@ -1,3 +1,94 @@
+Para implementar las operaciones de swap (sa, sb, ss) de forma ultra-eficiente sobre nuestra estructura t_stack, modificaremos directamente los punteros de la lista enlazada doble.
+El movimiento consiste en intercambiar los dos primeros nodos de la cima del stack. Como nuestros nodos no son circulares (tienen NULL al final o extremos lineales), el intercambio debe rehacer los enlaces next y prev de los dos primeros nodos y del tercero si existiera.
+Para cumplir la Norma de 42 y evitar duplicar código, crearemos una única función lógica interna (swap) que trabaje con un puntero doble t_node **head. Luego, las funciones oficiales (sa, sb, ss) simplemente la llamarán, imprimirán su comando y actualizarán las estadísticas del benchmark en O(1).
+Aquí tienes el archivo swap.c completo y 100% normativo (menos de 25 líneas por función):
+
+📄 Archivo swap.c
+
+c
+#include "push_swap.h"
+
+// 1. Función lógica pura: Intercambia los 2 primeros nodos de cualquier stack
+static void	swap(t_node **head)
+{
+	t_node	*first;
+	t_node	*second;
+
+	if (!head || !*head || !(*head)->next)
+		return ;
+	first = *head;
+	second = first->next;
+	first->next = second->next;
+	if (second->next)
+		second->next->prev = first;
+	second->prev = NULL;
+	second->next = first;
+	first->prev = second;
+	*head = second;
+}
+
+// 2. Operación SA: Intercambia los 2 primeros elementos del Stack A
+void	sa(t_stack *stack, int silent)
+{
+	if (stack->size_a < 2)
+		return ;
+	swap(&(stack->a));
+	if (!silent)
+	{
+		write(1, "sa\n", 3);
+		stack->op_count++;
+		stack->op_stats[0]++; // Supongamos que el índice 0 es para 'sa'
+	}
+}
+
+// 3. Operación SB: Intercambia los 2 primeros elementos del Stack B
+void	sb(t_stack *stack, int silent)
+{
+	if (stack->size_b < 2)
+		return ;
+	swap(&(stack->b));
+	if (!silent)
+	{
+		write(1, "sb\n", 3);
+		stack->op_count++;
+		stack->op_stats[1]++; // Supongamos que el índice 1 es para 'sb'
+	}
+}
+
+// 4. Operación SS: Ejecuta SA y SB al mismo tiempo
+void	ss(t_stack *stack)
+{
+	int	executed;
+
+	executed = 0;
+	if (stack->size_a >= 2)
+	{
+		sa(stack, 1);
+		executed = 1;
+	}
+	if (stack->size_b >= 2)
+	{
+		sb(stack, 1);
+		executed = 1;
+	}
+	if (executed)
+	{
+		write(1, "ss\n", 3);
+		stack->op_count++;
+		stack->op_stats[2]++; // Supongamos que el índice 2 es para 'ss'
+	}
+}
+Usa el código con precaución.
+
+💡 Detalles clave de la implementación:
+
+• El parámetro silent: Permite reutilizar sa y sb dentro de la función ss sin que impriman sus textos individuales en la consola ni alteren los contadores por separado. De esta forma, si se ejecuta ss, solo se imprime una línea y cuenta como una sola operación, tal como exige el subject.
+• Seguridad de punteros: La lógica comprueba si el tercer elemento existe (if (second->next)) para reconfigurar su puntero prev hacia el nuevo segundo elemento, evitando cualquier caída por desreferenciación ilegal (Segmentation Fault).
+
+
+
+
+
 Sí, debes incrementar tanto count_op como la posición correspondiente de static_op cada vez que el movimiento sea válido, asegurando además de enlazar bien los punteros prev de tu lista doblemente enlazada.
 Como tienes una estructura central t_stack (ideal para llevar el control de métricas, estrategias y el benchmark), lo mejor es pasarle directamente t_stack *stack a tus funciones de movimiento.
 
