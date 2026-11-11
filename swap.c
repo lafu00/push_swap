@@ -34,7 +34,7 @@ void	sa(t_stack *stack, int silent)
 {
 	if(stack->size_a < 2)
 		return;
-	swap(&(stack->stack_a))
+	swap(&(stack->top_a))
 	if (!silent)
 	{
 		write(1, "sa\n", 3);
@@ -47,7 +47,7 @@ void	sb(t_stack *stack, int silent)
 {
 	if(stack->size_b < 2)
 		return;
-	swap(&(stack->stack_b))
+	swap(&(stack->top_b))
 	if (!silent)
 	{
 		write(1, "sb\n", 3);
