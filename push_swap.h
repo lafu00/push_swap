@@ -31,7 +31,6 @@ typedef struct s_stack
 {
 	t_node	*top_a;
 	t_node	*top_b;
-	t_node	*last;
 	int		size_a;
 	int		size_b;
 	long	count_op;
