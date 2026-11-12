@@ -6,7 +6,7 @@
 /*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/11 22:11:03 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/11 23:14:19 by rehlich         ###   ########.fr        */
+/*   Updated: 2026/11/12 10:58:37 by rehlich         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int	main(int argc, char **argv)
 	stack = build_program(temp, size, flag, disorder);
 	if (!stack)
 		return (write(2, "Error\n", 6), 1);
+	print_stack_debug(stack);
 	return (free_all(stack), 0);
 }

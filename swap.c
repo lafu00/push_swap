@@ -6,13 +6,13 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 11:17:57 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/10 12:29:15 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/12 10:55:55 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-satic	void	swap(t_node **head)
+static void	swap(t_node **head)
 {
 	t_node	*node0;
 	t_node	*node1;
@@ -32,8 +32,8 @@ satic	void	swap(t_node **head)
 
 void	sa(t_stack *stack, int silent)
 {
-	if(stack->size_a < 2)
-		return;
+	if (stack->size_a < 2)
+		return ;
 	swap(&(stack->top_a));
 	if (!silent)
 	{
@@ -45,8 +45,8 @@ void	sa(t_stack *stack, int silent)
 
 void	sb(t_stack *stack, int silent)
 {
-	if(stack->size_b < 2)
-		return;
+	if (stack->size_b < 2)
+		return ;
 	swap(&(stack->top_b));
 	if (!silent)
 	{
@@ -58,15 +58,15 @@ void	sb(t_stack *stack, int silent)
 
 void	ss(t_stack *stack)
 {
-	int	 executed;
+	int	executed;
 
 	executed = 0;
-	if(stack->size_a > 2)
+	if (stack->size_a > 2)
 	{
 		sa(stack, 1);
 		executed = 1;
 	}
-	if(stack->size_b > 2)
+	if (stack->size_b > 2)
 	{
 		sb(stack, 1);
 		executed = 1;
