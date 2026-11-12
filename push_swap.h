@@ -53,11 +53,8 @@ t_stack	*init_stack(t_node *a, int size, int flag, double disorder);
 t_node	*fill_stack_a(int *temp, int *indexed, int size);
 void	free_nodes(t_node *head);
 void	free_all(t_stack *stack);
-t_node	*new_node(int value, int index);
-void	add_back(t_stack *s, t_node *n);
 t_stack	*build_stack(int *values, int *indexes, int size);
 void	free_stack(t_stack *s);
-void	print_stack(t_stack *s);
 void	sa(t_stack *stack, int silence);
 void	sb(t_stack *stack, int silence);
 void	ss(t_stack *stack);
@@ -69,5 +66,6 @@ void	rrb(t_stack *stack, int silent);
 void	rrr(t_stack *stack);
 void	pa(t_stack *stack, int silent);
 void	pb(t_stack *stack, int silent);
+void	print_stack_debug(t_stack *stack);
 
 #endif
