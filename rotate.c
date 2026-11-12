@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/12 11:26:17 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/12 11:41:02 by rehlich          ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   rotate.c                                          :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/12 11:26:17 by rehlich          #+#    #+#              */
+/*   Updated: 2026/11/12 23:14:47 by rehlich         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	rr(t_stack *stack)
 	int	executed;
 
 	executed = 0;
-	if (stack->size_a > 2)
+	if (stack->size_a >= 2)
 	{
 		ra(stack, 1);
 		executed = 1;
 	}
-	if (stack->size_b > 2)
+	if (stack->size_b >= 2)
 	{
 		rb(stack, 1);
 		executed = 1;
