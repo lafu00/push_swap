@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
+/*   By: lerodrig <lerodrig@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 15:13:18 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/10 12:59:10 by rehlich          ###   ########.fr       */
+/*   Created: 2026/11/04 15:13:18 by lerodrig          #+#    #+#             */
+/*   Updated: 2026/11/12 15:15:59 by lerodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ void	free_stack(t_stack *s);
 void	print_stack(t_stack *s);
 void	sa(t_stack *stack, int silence);
 void	sb(t_stack *stack, int silence);
-void	ss(t_stack *stack)
+void	ss(t_stack *stack);
+void	ra(t_stack *stack, int silent);
+void	rb(t_stack *stack, int silent);
+void	rr(t_stack *stack);
+void	rra(t_stack *stack, int silent);
+void	rrb(t_stack *stack, int silent);
+void	rrr(t_stack *stack);
+void	pa(t_stack *stack, int silent);
+void	pb(t_stack *stack, int silent);
 
 #endif
