@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main_new.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/13 10:29:50 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/13 10:30:30 by rehlich          ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   main_new.c                                        :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/13 10:29:50 by lerodrig         #+#    #+#              */
+/*   Updated: 2026/11/13 11:07:06 by lerodrig        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,13 @@ static void	test_movements(t_stack *stack)
 	print_both_stacks(stack, "ESTADO INICIAL");
 	sa(stack, 0);
 	print_both_stacks(stack, "SA (Intercambia los 2 primeros de A)");
-	rra(stack, 0);
-	print_both_stacks(stack, "RRA (Rota A al reves)");
+	rr(stack);
+	print_both_stacks(stack, "RRA (Rota A y b)");
 	pb(stack);
 	pb(stack);
 	print_both_stacks(stack, "PB x2 (Mueve 2 elementos de A hacia B)");
-	rr(stack);
-	print_both_stacks(stack, "RR (Rota A y B hacia arriba a la vez)");
+	rrb(stack, 0);
+	print_both_stacks(stack, "RRB (Rota B al reves)");
 	rrr(stack);
 	print_both_stacks(stack, "RRR (Rota A y B al reves)");
 	pa(stack);
