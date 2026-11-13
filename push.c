@@ -29,32 +29,27 @@ static void	push(t_node **ori, t_node **dest)
 	*dest = temp;
 }
 
-void	pa(t_stack *stack, int silent)
+void	pa(t_stack *stack)
 {
 	if (stack->size_b == 0)
 		return ;
 	push(&(stack->top_b), &(stack->top_a));
 	stack->size_b--;
 	stack->size_a++;
-	if (!silent)
-	{
-		write(1, "pa\n", 3);
-		stack->count_op++;
-		stack->stat_op[3]++;
-	}
+	write(1, "pa\n", 3);
+	stack->count_op++;
+	stack->stat_op[3]++;
+	
 }
 
-void	pb(t_stack *stack, int silent)
+void	pb(t_stack *stack)
 {
 	if (stack->size_a == 0)
 		return ;
 	push(&(stack->top_a), &(stack->top_b));
 	stack->size_a--;
 	stack->size_b++;
-	if (!silent)
-	{
-		write(1, "pb\n", 3);
-		stack->count_op++;
-		stack->stat_op[4]++;
-	}
+	write(1, "pb\n", 3);
+	stack->count_op++;
+	stack->stat_op[4]++;
 }
