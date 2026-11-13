@@ -63,8 +63,8 @@ void	rr(t_stack *stack);
 void	rra(t_stack *stack, int silent);
 void	rrb(t_stack *stack, int silent);
 void	rrr(t_stack *stack);
-void	pa(t_stack *stack, int silent);
-void	pb(t_stack *stack, int silent);
+void	pa(t_stack *stack;
+void	pb(t_stack *stack);
 void	print_stack_debug(t_stack *stack);
 
 #endif
