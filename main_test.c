@@ -3,10 +3,10 @@
 /*                                                       :::      ::::::::    */
 /*   main_test.c                                       :+:      :+:    :+:    */
 /*                                                   +:+ +:+         +:+      */
-/*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
+/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/12 22:38:55 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/12 23:36:33 by rehlich         ###   ########.fr        */
+/*   Created: 2026/11/12 22:38:55 by lerodrig         #+#    #+#              */
+/*   Updated: 2026/11/13 10:36:18 by lerodrig        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lerodrig <lerodrig@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 15:13:18 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/12 15:15:59 by lerodrig         ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/04 15:13:18 by lerodrig         #+#    #+#              */
+/*   Updated: 2026/11/13 10:36:00 by lerodrig        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	rr(t_stack *stack);
 void	rra(t_stack *stack, int silent);
 void	rrb(t_stack *stack, int silent);
 void	rrr(t_stack *stack);
-void	pa(t_stack *stack;
+void	pa(t_stack *stack);
 void	pb(t_stack *stack);
 void	print_stack_debug(t_stack *stack);
 

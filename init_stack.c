@@ -3,10 +3,10 @@
 /*                                                       :::      ::::::::    */
 /*   init_stack.c                                      :+:      :+:    :+:    */
 /*                                                   +:+ +:+         +:+      */
-/*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
+/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/11 22:11:53 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/11 22:39:41 by rehlich         ###   ########.fr        */
+/*   Created: 2026/11/11 22:11:53 by lerodrig         #+#    #+#              */
+/*   Updated: 2026/11/13 10:50:48 by lerodrig        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ void	free_all(t_stack *stack)
 	if (stack->top_a)
 		free_nodes(stack->top_a);
 	if (stack->top_b)
-		free_nodes(stack->top_a);
+		free_nodes(stack->top_b);
 	free(stack);
 }
