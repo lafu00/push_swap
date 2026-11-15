@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   main_new.c                                        :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/13 10:29:50 by lerodrig         #+#    #+#              */
-/*   Updated: 2026/11/13 11:07:06 by lerodrig        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   main_new.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/13 10:29:50 by lerodrig          #+#    #+#             */
+/*   Updated: 2026/11/15 22:13:05 by leticiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,6 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 1);
 	select_strat(stack);
 	//test_movements(stack);
+	print_bench(stack);
 	return (free_all(stack), 0);
 }

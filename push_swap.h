@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/04 15:13:18 by lerodrig         #+#    #+#              */
-/*   Updated: 2026/11/13 10:36:00 by lerodrig        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/04 15:13:18 by lerodrig          #+#    #+#             */
+/*   Updated: 2026/11/15 22:05:17 by leticiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,9 @@ int		find_lowest_index(t_node *node, int index);
 void	place_min_to_b(t_stack *stack, int index);
 void	sort_5(t_stack *stack);
 void	select_strat(t_stack *stack);
+void	print_bench(t_stack *stack);
+void	print_disorder(double disorder);
+void	print_strategy(int mode, double disorder);
+int		disorder_level(double disorder);
 
 #endif

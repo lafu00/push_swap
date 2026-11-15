@@ -113,7 +113,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 1);
 	print_stack_debug(stack);
 	select_strat(stack);
-	//poner salida bench
+	print_bench(stack);
 	print_stack_debug(stack);
 	return (free_all(stack), 0);
 }
