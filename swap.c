@@ -37,7 +37,8 @@ void	sa(t_stack *stack, int silent)
 	swap(&(stack->top_a));
 	if (!silent)
 	{
-		write(1, "sa\n", 3);
+		if (!stack->bench_mode)
+			write(1, "sa\n", 3);
 		stack->count_op++;
 		stack->stat_op[0]++;
 	}
@@ -50,7 +51,8 @@ void	sb(t_stack *stack, int silent)
 	swap(&(stack->top_b));
 	if (!silent)
 	{
-		write(1, "sb\n", 3);
+		if (!stack->bench_mode)
+			write(1, "sb\n", 3);
 		stack->count_op++;
 		stack->stat_op[1]++;
 	}
@@ -73,7 +75,8 @@ void	ss(t_stack *stack)
 	}
 	if (executed)
 	{
-		write(1, "ss\n", 3);
+		if (!stack->bench_mode)
+			write(1, "ss\n", 3);
 		stack->count_op++;
 		stack->stat_op[2]++;
 	}
