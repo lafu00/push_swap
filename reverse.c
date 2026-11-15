@@ -35,7 +35,8 @@ void	rra(t_stack *stack, int silent)
 	reverse(&(stack->top_a));
 	if (!silent)
 	{
-		write(1, "rra\n", 4);
+		if (!stack->bench_mode)
+			write(1, "rra\n", 4);
 		stack->count_op++;
 		stack->stat_op[8]++;
 	}
@@ -48,7 +49,8 @@ void	rrb(t_stack *stack, int silent)
 	reverse(&(stack->top_b));
 	if (!silent)
 	{
-		write(1, "rrb\n", 4);
+		if (!stack->bench_mode)
+			write(1, "rrb\n", 4);
 		stack->count_op++;
 		stack->stat_op[9]++;
 	}
@@ -71,7 +73,8 @@ void	rrr(t_stack *stack)
 	}
 	if (executed)
 	{
-		write(1, "rrr\n", 4);
+		if (!stack->bench_mode)
+			write(1, "rrr\n", 4);
 		stack->count_op++;
 		stack->stat_op[10]++;
 	}
