@@ -8,7 +8,13 @@ main
 -Asi tiene una matriz limpia con los valores q no son flags. mira q los str sean nros validos (sino: error), los castea a nros con el atol y q no desborde el entero(si sí: error=. y por ultimo mira q no haya duplicados(si hay: error).
 -calcula el desorden
 -genera el array de indices
--crea la pila con sus números ya validados y sus índices.
+-calcula desorden y extrae bandera
+-crea la pila con sus números ya validados y sus índices, solo si el desorden es > 0 o bench se haya seleccionado (flag>10).
+-imprime pila 1er estado
+-hace la seleccion de estrategia (ordena hasta 5)
+-hace el informe del modo bench (agregar!!)
+-imprime pila final
+-libera todo.
 
 ---hay 5 func auxiliares y 2 más estaticas en 2 archivos, y 2 estaticas en el main.-- Ahora hay 7, 2 mas en un archivo extra: util_calc para calcular el desorden y los indices.
 
@@ -18,15 +24,13 @@ valid: is_valid_number, aqui la matriz ya no tiene flags, y revisa q solo haya n
 
 calc: calc_disorder (da un decimal usando la formula del subject) y calc_index (da un array de indices)
 
-----en este caso he puesto que si hay varias flags de estrategia se quede con la ultima, no lo toma como error.---- Ahora ya da error si hay 2 flags, iguales o distintas o 2 bench.
-
----calcular el indice de desorden (ver si es cero que pasa si pusieron flag de bench) y sacar los indices del array final.--- Ya se pueden calcular.
+---- Ahora ya da error si hay 2 flags, iguales o distintas o 2 bench.
 
 Ahora hay q ver la estructura de datos de la lista.
 --- De lo que estuve mirando en otro proyectos y la foto esa q te mande, se recomiendan hacer 2 estructuras, la de nodo con value, index, next y prev para q sea doblemente enlazada. Y otra estructura, la de stack, con top_a, top_b, size_a, size_b, strategy, bench_mode, disorder_index, contador_operaciones y estadisticas_operaciones (las 11 operaciones que se muestran en el bench).
 ----- A las funciones anteriores añado la estructura de datos del stack (t_node, t_stack) y la creación del stack A 
 con new_node(), add_back(), build_stack(), free_stack()
-        -----funcion para imprimir la pila y debugear????? No debe entregarse
+        -----funcion para imprimir la pila y debugear--- No debe entregarse
 
 Estructura de datos de la lista:
 ----------------------------------------
@@ -36,8 +40,13 @@ Estructura de datos de la lista:
 - se construye en orden de entrada
 - se libera correctamente
 
-to do´s: 
+--- 4 archivos con las 4 operaciones principales (s, p, r y rr) se verifica el status de bench para imprimir o no los movimientos x pantalla e incrementan los contadores de cada una.
 
-generar las operaciones con listas de forma genérica (swap esta, hay q mejorar el entendimiento del manejo de listas y terminar los otros movimientos).
-elegir los algoritmos y
-ver los tipos de salida segun los flags.
+---- 1 archivo con 5 funciones para el selector de estrategia: ordena3, ordena5, busca_posicion_indice-menor, push_indice_menor__b, y selector q manda mensaje para el tipo de estrategia donde debe llamar los algoritmos.
+
+---- archivo modo bench: putnbr, convertir desorden en %, imprimir tipo algoritmo, imprimir cantidad de operaciones, imprimir cantidad de cada tipo de operaciones (lo mejor definir un array de texto con nombre cada operacion y agregarle el valor del array de contadores)
+
+********to do´s: 
+
+algoritmos (pongo archivo de explicacion de 2 tipo simple, el mas facil es el que se parece a ordena5)
+
