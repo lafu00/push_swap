@@ -37,7 +37,8 @@ void	ra(t_stack *stack, int silent)
 	rotate(&(stack->top_a));
 	if (!silent)
 	{
-		write(1, "ra\n", 3);
+		if (!stack->bench_mode)
+			write(1, "ra\n", 3);
 		stack->count_op++;
 		stack->stat_op[5]++;
 	}
@@ -50,7 +51,8 @@ void	rb(t_stack *stack, int silent)
 	rotate(&(stack->top_b));
 	if (!silent)
 	{
-		write(1, "rb\n", 3);
+		if (!stack->bench_mode)
+			write(1, "rb\n", 3);
 		stack->count_op++;
 		stack->stat_op[6]++;
 	}
@@ -73,7 +75,8 @@ void	rr(t_stack *stack)
 	}
 	if (executed)
 	{
-		write(1, "rr\n", 3);
+		if (!stack->bench_mode)
+			write(1, "rr\n", 3);
 		stack->count_op++;
 		stack->stat_op[7]++;
 	}
