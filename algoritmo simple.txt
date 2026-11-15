@@ -1,0 +1,51 @@
+El algoritmo simple más fácil de entender e implementar en push_swap es la adaptación del orden por selección (Selection Sort), también conocido en este proyecto como extracción sucesiva del mínimo.
+Su lógica es exactamente la misma que acabas de ver para ordenar 5 elementos, pero generalizada para cualquier tamaño n. Como ya tenemos todos los nodos indexados del 0 al n - 1, sabemos exactamente en qué orden deben ir.
+
+Cómo funciona paso a paso
+
+El proceso completo se divide en dos fases muy directas:
+• Fase 1: Vaciar el Stack A hacia el Stack B en orden
+	1. Buscas en qué posición del Stack A está el número con el índice más pequeño actual (en la primera vuelta será el 0, en la segunda el 1, luego el 2, etc.).
+	2. Calculas si ese nodo está más cerca de la cima o de la base del Stack A. Si está en la mitad superior, rotas hacia arriba (ra); si está en la mitad inferior, rotas hacia abajo (rra).
+	3. Cuando el índice buscado llega a la cima de A, lo empujas al Stack B usando pb.
+	4. Repites estos tres pasos hasta que en el Stack A solo queden 3 elementos (o hasta vaciarlo por completo).
+• Fase 2: Devolver todo ordenado al Stack A
+	1. Si dejaste 3 elementos en A, los ordenas en un instante usando tu función sort_three.
+	2. Como fuiste enviando los números al Stack B de menor a mayor, en B te han quedado apilados al revés (el más grande está en la cima de B y el 0 está en el fondo).
+	3. Solo tienes que hacer pa repetidamente hasta vaciar el Stack B. Al ir cayendo uno encima de otro en A, quedarán perfectamente ordenados con el 0 arriba del todo.
+
+Por qué cumple con el requisito de complejidad O(n²)
+
+• Cálculo de operaciones: Para mover el primer elemento necesitas como máximo n/2) rotaciones. Para el segundo n-1/2, y así sucesivamente hasta llegar a 0.
+• Resultado: La suma de todas estas rotaciones da aproximadamente n2/4 operaciones, más 2n movimientos de pb y pa. En notación asintótica, esto pertenece de lleno a la clase O(n²) exigida por el enunciado para la flag --simple.
+
+
+Es el candidato perfecto para --simple porque ya tienes la mitad del código escrito. La lógica para buscar un índice y subirlo por el camino más corto.
+
+------------------------------------------------------------------
+
+El orden por inserción (Insertion Sort) funciona exactamente igual que cuando ordenas una mano de cartas: tomas una carta nueva de la mesa y la colocas directamente en el hueco exacto que le corresponde entre las cartas que ya tienes ordenadas en tu mano.
+
+Cómo funciona paso a paso en Push_swap
+
+• Fase 1: Construir un Stack B ordenado (de mayor a menor)
+	1. Empujas los dos primeros elementos del Stack A al Stack B con pb para tener una base inicial.
+	2. Tomas el siguiente elemento que esté en la cima del Stack A y miras su índice.
+	3. Buscas en qué posición exacta del Stack B debe encajar ese índice para que B se mantenga ordenado.
+	4. Rotas el Stack B (rb o rrb) hasta llevar ese hueco exacto a la cima de B, y empujas el elemento con pb.
+	5. Repites el proceso hasta vaciar todo el Stack A.
+• Fase 2: Devolver todo al Stack A
+	1. Una vez que el Stack B tiene todos los números ordenados de mayor a menor, lo rotas (rb o rrb) hasta que el número más grande quede en la cima de B.
+	2. Ejecutas pa repetidamente hasta vaciar B y dejar todo ordenado en A.
+
+Por qué es más complejo de programar que el de Selección
+
+Aunque ambos tienen la misma complejidad teórica (O(n²)), el de inserción requiere bastante más código y control lógico por tres motivos principales:
+• Búsqueda de rangos en lugar de un valor fijo: En el algoritmo de selección buscas un número exacto y conocido (primero el 0, luego el 1, luego el 2). En inserción recibes cualquier índice desordenado desde la cima de A (por ejemplo, el 42) y debes recorrer todo el Stack B buscando entre qué dos números encaja (por ejemplo, entre el 45 y el 38).
+• Gestión de extremos (Nuevo máximo o nuevo mínimo): Si el número que vas a insertar desde A es más grande que todos los que hay en B, o más pequeño que todos los de B, la búsqueda normal entre vecinos falla. Tienes que programar casos especiales para detectar que estás ante un nuevo extremo y colocarlo justo encima del máximo actual de B.
+• Más líneas de código frente a la Norma de 42: Controlar las posiciones de inserción y los casos límite obliga a escribir varias funciones auxiliares de búsqueda.
+
+Ventaja oculta del orden por inserción
+
+Aunque es más largo de programar para --simple, su lógica de inserción ordenada con rotaciones mínimas es una herramienta excelente si quieres usarla en tu modo adaptativo para desorden bajo (< 0.2), donde el stack ya viene casi ordenado y apenas requiere mover unos pocos elementos descolocados.
+
