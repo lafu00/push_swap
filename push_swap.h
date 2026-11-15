@@ -53,7 +53,6 @@ t_node	*fill_stack_a(int *temp, int *indexed, int size);
 void	free_nodes(t_node *head);
 void	free_all(t_stack *stack);
 t_stack	*build_stack(int *values, int *indexes, int size);
-void	free_stack(t_stack *s);
 void	sa(t_stack *stack, int silence);
 void	sb(t_stack *stack, int silence);
 void	ss(t_stack *stack);
@@ -66,5 +65,10 @@ void	rrr(t_stack *stack);
 void	pa(t_stack *stack);
 void	pb(t_stack *stack);
 void	print_stack_debug(t_stack *stack);
+void	sort_3(t_stack *stack);
+int		find_lowest_index(t_node *node, int index);
+void	place_min_to_b(t_stack *stack, int index);
+void	sort_5(t_stack *stack);
+void	select_strat(t_stack *stack);
 
 #endif
