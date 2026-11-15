@@ -63,7 +63,7 @@ static t_stack	*build_program(int *temp, int size, int flag, double disorder)
 	printf("Elementos en el stack: %i\n", size);
 	printf("Disorder: %f\n", disorder);
 	stack_a = fill_stack_a(temp, indexed, size);
-	while (temp[i])
+	while (i < size)
 	{
 		printf("Total Indice: %i %i\n", temp[i], indexed[i]);
 		i++;
@@ -106,11 +106,14 @@ int	main(int argc, char **argv)
 	if (!temp)
 		return (write(2, "Error\n", 6), 1);
 	disorder = calc_disorder(temp, size);
-	if (disorder == 0.0)
+	if (disorder == 0.0 && flag < 10)
 		return (free(temp), 0);
 	stack = build_program(temp, size, flag, disorder);
 	if (!stack)
 		return (write(2, "Error\n", 6), 1);
+	print_stack_debug(stack);
+	select_strat(stack);
+	//poner salida bench
 	print_stack_debug(stack);
 	return (free_all(stack), 0);
 }
