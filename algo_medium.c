@@ -56,7 +56,7 @@ void	algo_medium(t_stack *stack)
 	int	range;
 	int	pos;
 
-	range = ft_sqrt((stack->size_a) * 7) / 5;
+	range = (ft_sqrt(stack->size_a) * 7) / 5;
 	fill_b(stack, range);
 	while (stack->size_b > 0)
 	{
