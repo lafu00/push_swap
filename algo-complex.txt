@@ -1,0 +1,55 @@
+En push_swap de 42, la versión clásica decimal de Radix no sirve porque solo tienes dos pilas (A y B). En su lugar, se adapta a Radix Binario (base 2) trabajando directamente sobre los índices simplificados (0 hasta \(size\_a - 1\)) que ya tienes asignados en cada nodo.
+Como solo existen dos dígitos posibles en binario (0 y 1), tus dos pilas actúan como los dos "cubos" (buckets) del algoritmo.
+
+1. Concepto clave: Cómo funciona Radix en push_swap
+
+1. Trabajas con los índices en binario: No ordenas los valores originales (que pueden ser negativos o muy grandes), sino los índices (\(0, 1, 2, \dots, N-1\)).
+2. Cada pasada es un bit: Empiezas evaluando el bit menos significativo (posición 0, el de más a la derecha) de cada índice y vas avanzando hacia la izquierda hasta cubrir todos los bits necesarios para representar el índice máximo (\(size\_a - 1\)).
+3. Regla de movimiento en cada pasada:
+	• Si el bit actual del índice en la cima de la pila A es 0, lo mandas a la pila B (pb).
+	• Si el bit actual es 1, lo dejas en la pila A rotándola hacia arriba (ra).
+4. Reunificación: Cuando hayas revisado todos los elementos originales de A en esa pasada, devuelves todo lo que quedó en B hacia A (pa).
+5. Repetición: Al terminar la pasada del bit más significativo, la pila A quedará ordenada de menor a mayor en la cima.
+
+2. Guía paso a paso para programar tu algoritmo
+
+Sabiendo que ya tienes una lista doblemente enlazada, los índices calculados y el tamaño size_a, estructura tu implementación así (sin darte código, solo la lógica exacta):
+
+Paso 1: Calcular el número máximo de bits (max_bits)
+
+Antes de empezar los bucles, necesitas saber cuántas pasadas vas a dar.
+• Toma el índice más grande posible, que siempre es size_a - 1.
+• Cuenta cuántos desplazamientos a la derecha (>>) necesitas hacer sobre ese número hasta que llegue a 0. Ese contador será tu max_bits (por ejemplo, para 100 números, el índice máximo es 99, que cabe en 7 bits; para 500 números, el máximo es 499, que cabe en 9 bits).
+
+Paso 2: Configurar los dos bucles anidados
+
+Tu función principal de Radix tendrá dos bucles:
+• Bucle exterior (las pasadas por bit): Una variable i que va desde 0 hasta max_bits - 1. Representa qué bit estás mirando en esa vuelta.
+• Bucle interior (recorrer la pila A): Una variable j que va desde 0 hasta size_a - 1. Muy importante: guarda el tamaño inicial de A en una variable fija antes de entrar al bucle interior, porque size_a irá cambiando conforme hagas pb y pa.
+
+Paso 3: Evaluar el bit y ejecutar el movimiento
+
+Dentro del bucle interior, en cada iteración:
+1. Mira únicamente el nodo que está en la cima (head) de tu pila A.
+2. Extrae el bit en la posición i de su índice usando operadores a nivel de bits: desplaza el índice i posiciones a la derecha y haz una operación AND con 1 ((nodo->index >> i) & 1).
+3. Toma la decisión:
+	• Si el resultado es 0: Ejecuta tu operación pb (el nodo sale de A y entra en la cima de B).
+	• Si el resultado es 1: Ejecuta tu operación ra (el nodo de la cima pasa al final de A, aprovechando tus punteros next y prev de la lista doblemente enlazada).
+
+Paso 4: Vaciar la pila B de vuelta a A
+
+Cuando termine el bucle interior (es decir, ya evaluaste los size_a elementos originales en ese bit):
+• Crea un bucle while que se ejecute mientras la pila B no esté vacía (o mientras size_b > 0).
+• Dentro de él, ejecuta tu operación pa continuamente hasta devolver todos los elementos a A.
+• Nota: Como pb invirtió el orden al apilar en B y pa lo vuelve a invertir al regresar a A, se conserva exactamente el orden relativo (estabilidad).
+
+Paso 5: Optimización temprana (Opcional pero útil)
+
+Al inicio de cada iteración del bucle exterior (antes de empezar a evaluar el siguiente bit), puedes llamar a tu función is_sorted(stack_a). Si la pila A ya está ordenada antes de llegar al último bit, haz break y ahorra movimientos innecesarios.
+
+3. Detalles clave para tu lista doblemente enlazada
+
+• Actualización de contadores: Asegúrate de que tus funciones pa y pb actualicen correctamente tanto size_a como size_b, además de reenlazar bien los punteros prev y next cuando una pila se queda vacía o recibe su primer nodo.
+• Casos pequeños: Recuerda que en push_swap, Radix es muy eficiente para 100 y 500 números (suele dar unos ~1084 movimientos para 100 y ~6784 para 500), pero para 2, 3, 4 o 5 números supera el límite de movimientos permitido. Asegúrate de derivar esos casos pequeños a funciones específicas antes de llamar a Radix.
+¿Ya tienes implementadas y probadas las operaciones básicas (ra, pb, pa) y el algoritmo para 3 y 5 elementos, o quieres que revisemos la lógica para optimizar esos casos pequeños?
+
