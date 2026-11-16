@@ -1,3 +1,23 @@
+
+Explicación paso a paso del Radix Sort Binario (LSD)
+
+El algoritmo LSD (Least Significant Digit) ordena los números revisando su representación en binario (ceros y unos) desde el bit más a la derecha (posición 0) hasta el bit más a la izquierda del número más grande.
+
+Conceptos nuevos que vas a necesitar en C
+
+Para inspeccionar los bits de un número entero sin usar funciones externas, vas a utilizar operadores bit a bit (bitwise operators):
+1. Desplazamiento a la derecha (>>):
+	• Qué hace: Mueve todos los bits de un número hacia la derecha tantas posiciones como le indiques, descartando los que salen por el extremo.
+	• Ejemplo: Si tienes el número 6 (en binario 110):
+		• 6 >> 0 sigue siendo 110 (el bit de la derecha es 0).
+		• 6 >> 1 se convierte en 011 (el bit que estaba en posición 1 ahora está a la derecha y vale 1).
+		• 6 >> 2 se convierte en 001 (el bit que estaba en posición 2 ahora está a la derecha y vale 1).
+	• Qué resuelve: Te permite aislar el bit que quieres evaluar en cada pasada llevándolo siempre a la última posición de la derecha.
+2. Operador AND bit a bit (& 1):
+	• Qué hace: Compara cada bit de dos números y devuelve 1 solo si ambos bits son 1. Al hacer & 1 (donde 1 en binario es 000...001), borra todos los bits de la izquierda y te deja únicamente el valor del último bit de la derecha (0 o 1).
+	• Condición resultante: ((num >> bit) & 1) == 0
+	• Qué resuelve: Te responde con un true o false limpio si el bit en la posición bit de ese índice es un 0 o un 1.
+
 En push_swap de 42, la versión clásica decimal de Radix no sirve porque solo tienes dos pilas (A y B). En su lugar, se adapta a Radix Binario (base 2) trabajando directamente sobre los índices simplificados (0 hasta \(size\_a - 1\)) que ya tienes asignados en cada nodo.
 Como solo existen dos dígitos posibles en binario (0 y 1), tus dos pilas actúan como los dos "cubos" (buckets) del algoritmo.
 
