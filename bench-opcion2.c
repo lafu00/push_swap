@@ -6,45 +6,19 @@
 /*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/15 21:57:08 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/16 22:26:03 by rehlich         ###   ########.fr        */
+/*   Updated: 2026/11/16 22:41:03 by rehlich         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static char	*op_name(int i)
-{
-	char	*ops[11];
-
-	ops[0] = " sa: ";
-	ops[1] = " sb: ";
-	ops[2] = " ss: ";
-	ops[3] = " pa: ";
-	ops[4] = " pb: ";
-	ops[5] = " ra: ";
-	ops[6] = " rb: ";
-	ops[7] = " rr: ";
-	ops[8] = " rra: ";
-	ops[9] = " rrb: ";
-	ops[10] = " rrr: ";
-	return (ops[i]);
-}
-
 static void	print_ops(t_stack *s, int from, int to)
 {
-	char	*ops[11];
-
-	ops[0] = " sa: ";
-	ops[1] = " sb: ";
-	ops[2] = " ss: ";
-	ops[3] = " pa: ";
-	ops[4] = " pb: ";
-	ops[5] = " ra: ";
-	ops[6] = " rb: ";
-	ops[7] = " rr: ";
-	ops[8] = " rra: ";
-	ops[9] = " rrb: ";
-	ops[10] = " rrr: ";
+	char	*ops[11] =
+	{
+		" sa: ", " sb: ", " ss: ", " pa: ", " pb: ",
+		" ra: ", " rb: ", " rr: ", " rra: ", " rrb: ", " rrr: "
+	};
 	ft_putstr_fd("[bench]", 2);
 	while (from <= to)
 	{
