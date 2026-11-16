@@ -17,6 +17,13 @@ Para inspeccionar los bits de un número entero sin usar funciones externas, vas
 	• Qué hace: Compara cada bit de dos números y devuelve 1 solo si ambos bits son 1. Al hacer & 1 (donde 1 en binario es 000...001), borra todos los bits de la izquierda y te deja únicamente el valor del último bit de la derecha (0 o 1).
 	• Condición resultante: ((num >> bit) & 1) == 0
 	• Qué resuelve: Te responde con un true o false limpio si el bit en la posición bit de ese índice es un 0 o un 1.
+*****Por qué este algoritmo es \(O(n \log n)\)
+
+• El bucle interior revisa siempre \(n\) elementos (coste \(O(n)\)).
+• El bucle exterior se ejecuta max_bits veces. Matemáticamente, el número de bits necesarios para representar un número \(n\) es \(\lfloor \log_2(n) \rfloor + 1\), es decir, \(O(\log n)\).
+• Al multiplicar las pasadas por los elementos revisados en cada pasada, la complejidad total de operaciones es estrictamente \(O(n \log n)\).
+Con los operadores bit a bit (>> y &) explicados y la estructura de los bucles clara, ya puedes escribir el código de sort_complex.c (necesitarás una función auxiliar para get_max_bits y la función principal sort_complex).
+-------
 
 En push_swap de 42, la versión clásica decimal de Radix no sirve porque solo tienes dos pilas (A y B). En su lugar, se adapta a Radix Binario (base 2) trabajando directamente sobre los índices simplificados (0 hasta \(size\_a - 1\)) que ya tienes asignados en cada nodo.
 Como solo existen dos dígitos posibles en binario (0 y 1), tus dos pilas actúan como los dos "cubos" (buckets) del algoritmo.
@@ -71,5 +78,4 @@ Al inicio de cada iteración del bucle exterior (antes de empezar a evaluar el s
 
 • Actualización de contadores: Asegúrate de que tus funciones pa y pb actualicen correctamente tanto size_a como size_b, además de reenlazar bien los punteros prev y next cuando una pila se queda vacía o recibe su primer nodo.
 • Casos pequeños: Recuerda que en push_swap, Radix es muy eficiente para 100 y 500 números (suele dar unos ~1084 movimientos para 100 y ~6784 para 500), pero para 2, 3, 4 o 5 números supera el límite de movimientos permitido. Asegúrate de derivar esos casos pequeños a funciones específicas antes de llamar a Radix.
-¿Ya tienes implementadas y probadas las operaciones básicas (ra, pb, pa) y el algoritmo para 3 y 5 elementos, o quieres que revisemos la lógica para optimizar esos casos pequeños?
 
