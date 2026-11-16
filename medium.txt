@@ -1,0 +1,79 @@
+Para el selector --medium (y el tramo intermedio de --adaptive entre 0.2 y 0.5), el enunciado exige un algoritmo con complejidad \(O(n\sqrt{n})\) en operaciones de push_swap.
+Las tres opciones principales dentro de esta clase son:
+
+1. Algoritmo Butterfly (Ventana Deslizante)
+
+• Cómo funciona: Define una ventana o rango dinámico proporcional a \(\sqrt{n}\). Recorre el Stack A empujando al Stack B los elementos cuyo índice cae dentro de la ventana actual. Si el índice es menor que la base de la ventana, lo manda al fondo de B con rb; si está dentro del rango, lo deja en la cima de B. Al vaciar A, todos los números quedan ordenados en B formando una estructura simétrica ("reloj de arena" o "mariposa"), lo que permite devolverlos a A buscando el máximo con pocas rotaciones.
+• Ventaja: No necesita buscar el siguiente bloque en A; avanza de forma continua y deja el Stack B pre-ordenado por capas.
+
+2. Partición por Chunks Fijos (Bloques Estáticos)
+
+• Cómo funciona: Divide el total de índices (0 a n - 1) en aproximadamente \(\sqrt{n}\) bloques fijos (por ejemplo, para 100 números crea 10 chunks de 10 elementos cada uno). Va vaciando el Stack A chunk por chunk hacia el Stack B, y al final devuelve los elementos de B hacia A buscando siempre el índice máximo disponible.
+• Ventaja: Es muy intuitivo de visualizar y programar, ya que trabajas con límites fijos (min_chunk y max_chunk).
+
+3. Bucket Sort Adaptado (Cubetas por Rangos)
+
+• Cómo funciona: Similar a los chunks, agrupa los elementos en \(\sqrt{n}\) cubetas de rangos consecutivos y los separa mediante rotaciones entre ambos stacks antes de reordenarlos localmente.
+• Desventaja: Requiere más control de límites y punteros que las dos opciones anteriores para encajar en las 25 líneas por función.
+
+Comparativa Rápida
+
+
+Estrategia	Facilidad de Código (Norma 42)	Eficiencia de Operaciones	Complejidad en Push_swap
+Butterfly (Ventana)	Alta (pocas líneas)	Muy alta (forma reloj de arena en B)	\(O(n\sqrt{n})\)
+Chunks Fijos	Muy alta (muy directo)	Media-Alta (más rotaciones en A)	\(O(n\sqrt{n})\)
+Buckets	Media (más control de estado)	Media	\(O(n\sqrt{n})\)
+
+
+Cuál es la más recomendable
+
+La opción más recomendable es el Algoritmo Butterfly (Ventana Deslizante) por tres razones prácticas:
+1. Menos operaciones reales: Al dividir los elementos empujados a B entre la cima y la base (pb directo vs pb + rb), evita que los números más grandes queden enterrados en el medio del Stack B, reduciendo drásticamente las rotaciones en la fase de retorno.
+2. Ideal para la Norma de 42: No requiere bucles complejos para buscar cuál es el elemento más cercano del chunk actual en A; simplemente evalúa la cima de A, avanza la ventana (i++) o rota (ra), cabiendo cómodamente en dos funciones cortas.
+3. Justificación directa: El tamaño de la ventana se calcula matemáticamente como una constante multiplicada por \(\sqrt{n}\) (por ejemplo, range = sqrt(n) * 1.5), lo que demuestra de forma directa y transparente la complejidad \(O(n\sqrt{n})\) para tu README.md y el modo --bench.
+
+El algoritmo se divide en tres pasos claros: calcular el tamaño de la ventana, vaciar A hacia B formando la "mariposa", y devolver todo ordenado de B hacia A.
+
+Paso 1: Calcular el tamaño del rango (la ventana)
+
+Como <math.h> suele estar prohibida (o requiere compilar con -lm), primero necesitas una función auxiliar de 6 líneas que calcule la raíz cuadrada entera de size_a.
+• El tamaño de tu ventana (range) será proporcional a esa raíz cuadrada.
+• La fórmula estándar que mejor rinde en push_swap es: range = ft_sqrt(size_a) * 1.4 (o (ft_sqrt(size_a) * 3) / 2 para evitar flotantes).
+• Por ejemplo, para 100 números (sqrt = 10), tu rango será 15. Para 500 números (sqrt = 22), tu rango será 33.
+
+Paso 2: Vaciar A hacia B (Formando el reloj de arena)
+
+Aquí es donde ocurre la magia. Vas a usar un contador i = 0 que representa el límite inferior de tu ventana deslizante. Mientras queden elementos en el Stack A (stack->size_a > 0), miras el index del nodo en la cima de A y evalúas tres casos:
+1. Caso A: El índice es menor o igual a i (stack->a->index <= i)
+	• Este número pertenece a la parte baja de la ventana actual.
+	• Lo empujas a B con pb.
+	• Lo mandas al fondo de B con rb para que los más pequeños queden en los extremos inferiores.
+	• Avanzas la ventana incrementando i++.
+2. Caso B: El índice está dentro de la ventana (stack->a->index <= i + range)
+	• Este número pertenece a la parte alta de la ventana actual.
+	• Lo empujas a B con pb y lo dejas arriba del todo en B (sin rotar).
+	• Avanzas la ventana incrementando i++.
+3. Caso C: El índice es mayor que i + range
+	• El número aún es demasiado grande para la ventana actual.
+	• Simplemente rotas A hacia arriba con ra para revisar el siguiente elemento, sin incrementar i.
+¿Qué habrás logrado al terminar este bucle?
+El Stack A estará vacío y el Stack B tendrá una forma simétrica (como una mariposa o un reloj de arena): los índices más grandes estarán cerca de la cima y de la base de B, mientras que los más pequeños quedarán en el centro.
+
+Paso 3: Devolver todo ordenado de B hacia A
+
+Ahora solo tienes que vaciar el Stack B (while (stack->size_b > 0)), devolviendo siempre el número más grande disponible en cada momento:
+1. Encuentra el índice máximo actual en B: Busca en qué posición (pos) está el nodo cuyo índice es igual a stack->size_b - 1 (ya que si quedan 100 elementos en B, el mayor de ellos siempre tendrá el índice 99).
+2. Calcula el camino más corto:
+	• Si pos <= stack->size_b / 2, está en la mitad superior: haz rb hasta subirlo a la cima.
+	• Si pos > stack->size_b / 2, está en la mitad inferior: haz rrb hasta subirlo a la cima.
+3. Empújalo a A: Haz pa. Como vas sacando del mayor al menor (99, 98, 97...), al apilarse en A quedarán ordenados con el 0 en la cima.
+
+Consejos
+
+• Divide el algoritmo en 3 funciones pequeñas dentro de sort_medium.c:
+	1. ft_sqrt(int nb) (para el cálculo de la ventana).
+	2. push_to_b_butterfly(t_stack *stack, int range) (Paso 2).
+	3. push_back_to_a(t_stack *stack) (Paso 3).
+	4. sort_medium(t_stack *stack) (orquesta las llamadas anteriores en 6 líneas).
+Con esta guía paso a paso tienes todo lo necesario para programarlo
+
