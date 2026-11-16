@@ -74,5 +74,7 @@ void	print_bench(t_stack *stack);
 void	print_disorder(double disorder);
 void	print_strategy(int mode, double disorder);
 int		disorder_level(double disorder);
+void    algo_simple(t_stack *stack);
+void    algo_medium(t_stack *stack);
 
 #endif
