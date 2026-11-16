@@ -77,3 +77,7 @@ Consejos
 	4. sort_medium(t_stack *stack) (orquesta las llamadas anteriores en 6 líneas).
 Con esta guía paso a paso tienes todo lo necesario para programarlo
 
+****** Justificación directa: El tamaño de la ventana se calcula matemáticamente como una constante multiplicada por \(\sqrt{n}\) (por ejemplo, range = sqrt(n) * 1.5 (o (ft_sqrt(size_a) * 3) / 2 ), lo que demuestra de forma directa y transparente la complejidad \(O(n\sqrt{n})\) para tu README.md y el modo --bench.
+
+
+
