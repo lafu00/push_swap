@@ -82,16 +82,6 @@ void	sort_5(t_stack *stack)
 	if (stack->size_b > 0)
 		pa(stack);
 }
-/*
-static void	adaptative(t_stack *stack)
-{
-if (stack->disorder < 0.2)
-printf("run sort simple\n");
-else if (stack->disorder >= 0.2 && stack->disorder < 0.5)
-printf("run sort medium\n");
-else
-printf("run sort complex\n");
-}*/
 
 void	select_strat(t_stack *stack)
 {
@@ -100,28 +90,34 @@ void	select_strat(t_stack *stack)
 	if (stack->size_a == 2)
 		printf("run sa\n");
 	else if (stack->size_a == 3)
-	{
-		printf("run sort 3\n");
 		sort_3(stack);
-	}
 	else if (stack->size_a <= 5)
-	{
-		printf("run sort 4 o 5\n");
 		sort_5(stack);
-	}
 	else if (stack->strategy == 1)
+	{
+		algo_simple(stack),
 		printf("run sort simple O(n2)\n");
+	}
 	else if (stack->strategy == 2)
+	{
+		algo_medium(stack);
 		printf("run sort medium O(n_sqrt_n)\n");
+	}
 	else if (stack->strategy == 3)
 		printf("run sort complex O(n_Log_n)\n");
 	else
 	{
 		printf("run sort adaptative\n");
 		if (stack->size_a > 5 && stack->disorder < 0.2)
+		{
+			algo_simple(stack);
 			printf("run sort simple\n");
+		}
 		else if (stack->size_a > 5 && stack->disorder >= 0.2 && stack->disorder < 0.5)
+		{
+			algo_medium(stack);
 			printf("run sort medium\n");
+		}
 		else
 			printf("run sort complex\n");
 	}
