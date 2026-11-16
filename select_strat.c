@@ -104,7 +104,10 @@ void	select_strat(t_stack *stack)
 		printf("run sort medium O(n_sqrt_n)\n");
 	}
 	else if (stack->strategy == 3)
-		printf("run sort complex O(n_Log_n)\n");
+	{
+		algo_complex(stack);
+		printf("run sort complex O(n log n)\n");
+	}
 	else
 	{
 		printf("run sort adaptative\n");
@@ -119,6 +122,9 @@ void	select_strat(t_stack *stack)
 			printf("run sort medium\n");
 		}
 		else
+		{
+			algo_complex(stack);
 			printf("run sort complex\n");
+		}
 	}
 }

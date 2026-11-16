@@ -6,7 +6,7 @@
 /*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 15:13:18 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/15 22:05:17 by leticiro         ###   ########.fr       */
+/*   Updated: 2026/11/16 22:23:00 by leticiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	print_strategy(int mode, double disorder);
 int		disorder_level(double disorder);
 void    algo_simple(t_stack *stack);
 void    algo_medium(t_stack *stack);
+void    algo_complex(t_stack *stack);
 
 #endif
