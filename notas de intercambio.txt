@@ -27,7 +27,10 @@ calc: calc_disorder (da un decimal usando la formula del subject) y calc_index (
 ---- Ahora ya da error si hay 2 flags, iguales o distintas o 2 bench.
 
 Ahora hay q ver la estructura de datos de la lista.
---- De lo que estuve mirando en otro proyectos y la foto esa q te mande, se recomiendan hacer 2 estructuras, la de nodo con value, index, next y prev para q sea doblemente enlazada. Y otra estructura, la de stack, con top_a, top_b, size_a, size_b, strategy, bench_mode, disorder_index, contador_operaciones y estadisticas_operaciones (las 11 operaciones que se muestran en el bench).
+--- De lo que estuve mirando en otro proyectos y la foto esa q te mande, se recomiendan hacer 2 estructuras, 
+la de nodo con value, index, next y prev para q sea doblemente enlazada. Y otra estructura, la de stack, 
+con top_a, top_b, size_a, size_b, strategy, bench_mode, disorder_index, contador_operaciones y 
+estadisticas_operaciones (las 11 operaciones que se muestran en el bench).
 ----- A las funciones anteriores añado la estructura de datos del stack (t_node, t_stack) y la creación del stack A 
 con new_node(), add_back(), build_stack(), free_stack()
         -----funcion para imprimir la pila y debugear--- No debe entregarse
@@ -40,13 +43,45 @@ Estructura de datos de la lista:
 - se construye en orden de entrada
 - se libera correctamente
 
---- 4 archivos con las 4 operaciones principales (s, p, r y rr) se verifica el status de bench para imprimir o no los movimientos x pantalla e incrementan los contadores de cada una.
+Operaciones:
+---------------
+--- 4 archivos con las 4 operaciones principales (s, p, r y rr) se verifica el status de bench 
+para imprimir o no los movimientos x pantalla e incrementan los contadores de cada una.
 
----- 1 archivo con 5 funciones para el selector de estrategia: ordena3, ordena5, busca_posicion_indice-menor, push_indice_menor__b, y selector q manda mensaje para el tipo de estrategia donde debe llamar los algoritmos.
+Selecctor de estrategia:
+------------------------
+---- 1 archivo con 5 funciones para el selector de estrategia: 
+ordena3, ordena5, busca_posicion_indice-menor, push_indice_menor__b, y selector 
+q manda mensaje para el tipo de estrategia donde debe llamar los algoritmos.
 
----- archivo modo bench: putnbr, convertir desorden en %, imprimir tipo algoritmo, imprimir cantidad de operaciones, imprimir cantidad de cada tipo de operaciones (lo mejor definir un array de texto con nombre cada operacion y agregarle el valor del array de contadores)
+Bench:
+---- archivo modo bench: putnbr, convertir desorden en %, imprimir tipo algoritmo, 
+imprimir cantidad de operaciones, imprimir cantidad de cada tipo de operaciones 
+(lo mejor definir un array de texto con nombre cada operacion y agregarle el valor del array de contadores)
+-------------------------------
+- Solo imprime: los contadores ya existen. Cada movimiento (s, p, r, rr) hace count_op++ y stat_op[i]++. El bench los LEE.
+- Todo va por stderr (fd 2) con ft_putstr_fd / ft_putnbr_fd / ft_putchar_fd.
+  Las operaciones --> por stdout. Solo se muestra si bench_mode == 1.
+- Orden de stat_op:
+  0 sa, 1 sb, 2 ss, 3 pa, 4 pb, 5 ra, 6 rb, 7 rr, 8 rra, 9 rrb, 10 rrr
+----- archivo bench_utils.c:
+        disorder_level(): devuelve 0 (bajo <0.2), 1 (medio <0.5) o 2 (alto).
+        print_disorder(): porcentaje con 2 decimales usando solo enteros
+                (x10000 + 0.5 para redondear, luego /100 y %100; el 0 de delante si los decimales son < 10).
+        print_strategy(): nombre + complejidad. En adaptive depende del nivel.
+----- bench.c:
+        op_name(i): traduce indice -> nombre de operacion.
+        print_ops(s,a,b):  recorre stat_op de a a b.
+        print_bench(s): llama a todo en orden: desorden, estrategia, total, print_ops(0,4), print_ops(5,10).
 
-********to do´s: 
+----- Comprobacion: la suma de las 2 ultimas lineas debe ser igual a total_ops.
 
-algoritmos (pongo archivo de explicacion de 2 tipo simple, el mas facil es el que se parece a ordena5)
+
+Algoritmos
+------------- (pongo archivo de explicacion de 2 tipo simple, el mas facil es el que se parece a ordena5)
+- simple
+- medium
+- complex --> Radix 
+
+********to do´s: Makefile, README, norminette (no me lo puedo creer :___) )
 

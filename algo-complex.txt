@@ -79,3 +79,24 @@ Al inicio de cada iteración del bucle exterior (antes de empezar a evaluar el s
 • Actualización de contadores: Asegúrate de que tus funciones pa y pb actualicen correctamente tanto size_a como size_b, además de reenlazar bien los punteros prev y next cuando una pila se queda vacía o recibe su primer nodo.
 • Casos pequeños: Recuerda que en push_swap, Radix es muy eficiente para 100 y 500 números (suele dar unos ~1084 movimientos para 100 y ~6784 para 500), pero para 2, 3, 4 o 5 números supera el límite de movimientos permitido. Asegúrate de derivar esos casos pequeños a funciones específicas antes de llamar a Radix.
 
+
+Notas Leti:
+
+Breve explicación de la implementación
+--------------------------------------
+El algoritmo complex --> version de radix sort binario, adaptada para dos pilas: A y B.
+
+La idea principal: no ordenar los valores originales, sino los índices ya asignados a cada nodo (0, 1, 2, ..., n - 1). 
+Cada pasada revisa un bit concreto del índice, empezando por el bit menos significativo (el situado más a la derecha) 
+y avanzando hacia la izquierda.
+
+En cada vuelta:
+
+- si el bit del nodo de la cima de A es 0, se empuja a B con pb
+- si el bit es 1, se deja en A rotando con ra
+- cuando ya se han revisado todos los elementos de A para ese bit, se vuelven a pasar todos los elementos de B a A con pa
+- Se repite esto para cada bit hasta que todos los índices queden ordenados. 
+
+- La operación es muy eficiente porque trabaja por bits, no por comparación directa.
+- Complejidad es O(n log n)
+
