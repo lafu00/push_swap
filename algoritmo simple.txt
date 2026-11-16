@@ -14,7 +14,7 @@ El proceso completo se divide en dos fases muy directas:
 	2. Como fuiste enviando los números al Stack B de menor a mayor, en B te han quedado apilados al revés (el más grande está en la cima de B y el 0 está en el fondo).
 	3. Solo tienes que hacer pa repetidamente hasta vaciar el Stack B. Al ir cayendo uno encima de otro en A, quedarán perfectamente ordenados con el 0 arriba del todo.
 
-Por qué cumple con el requisito de complejidad O(n²)
+********Por qué cumple con el requisito de complejidad O(n²)
 
 • Cálculo de operaciones: Para mover el primer elemento necesitas como máximo n/2) rotaciones. Para el segundo n-1/2, y así sucesivamente hasta llegar a 0.
 • Resultado: La suma de todas estas rotaciones da aproximadamente n2/4 operaciones, más 2n movimientos de pb y pa. En notación asintótica, esto pertenece de lleno a la clase O(n²) exigida por el enunciado para la flag --simple.
@@ -48,4 +48,26 @@ Aunque ambos tienen la misma complejidad teórica (O(n²)), el de inserción req
 Ventaja oculta del orden por inserción
 
 Aunque es más largo de programar para --simple, su lógica de inserción ordenada con rotaciones mínimas es una herramienta excelente si quieres usarla en tu modo adaptativo para desorden bajo (< 0.2), donde el stack ya viene casi ordenado y apenas requiere mover unos pocos elementos descolocados.
+--------
 
+Lineal O(n)
+
+El Gnome Sort adaptado a push_swap es elegante porque no utiliza el Stack B. Opera directamente sobre el Stack A mediante intercambios locales (sa) y desplazamientos de lectura (ra y rra), comportándose en tiempo lineal O(n) cuando hay pocas inversiones.
+
+Lógica del Gnome Sort adaptado
+
+• Posición inicial (pos = 0): Llevas un contador pos que indica en qué escalón del stack te encuentras.
+• Avance (first < second): Si los dos elementos superiores están en orden correcto, avanzas un paso rotando el stack hacia arriba (ra) y sumas pos++.
+• Retroceso (first > second): Si están invertidos, los intercambias con sa. Si ya habías avanzado (pos > 0), retrocedes un paso con rra y restas pos-- para comprobar si ese número debe seguir bajando.
+• Fin del recorrido: El bucle termina cuando pos alcanza el penúltimo elemento (stack->size_a - 1). En ese instante, como has dado exactamente size_a - 1 pasos hacia adelante en total, con una última rotación (ra) el índice 0 vuelve a quedar en la cima.
+
+*******Justificación de complejidad para tu README.md: El coste total de operaciones de esta función es exactamente n + 2k, donde n es el tamaño del stack y k es el número de inversiones existentes. Cuando el índice de desorden es menor a 0.2, k es muy pequeño respecto a n, manteniendo la ejecución en régimen lineal O(n).
+
+-----
+La diferencia principal entre ambos radica en cómo recorren el stack y en el número total de operaciones que generan según el estado inicial de los datos.
+Aquí tienes las diferencias clave entre el Algoritmo de Selección (O(n²)) y el Algoritmo Lineal (O(n)) diseñado para el umbral de desorden bajo (< 0.2) del modo adaptativo.
+
+1. Enfoque y número de pasadas
+
+• Algoritmo de Selección (O(n²)): Vacía casi todo el Stack A hacia el Stack B buscando los mínimos uno por uno. Para cada elemento descolocado, da múltiples vueltas al stack (hasta n pasadas completas), lo que dispara las operaciones de forma cuadrática sin importar si el stack estaba casi ordenado.
+• Algoritmo Lineal (O(n)): Realiza una única pasada secuencial de principio a fin. Como sabe que el índice de desorden es menor a 0.2, asume que la inmensa mayoría de los números ya están en su posición relativa correcta y solo corrige las pequeñas alteraciones locales sin desarmar todo el stack.
