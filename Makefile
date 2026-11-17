@@ -1,0 +1,37 @@
+NAME	=	push_swap
+
+CFLAGS	=	-Wall -Werror -Wextra
+LIBFT_DIR	= libft
+LIBFT		= $(LIBFT_DIR)/libft.a
+INCLUDES	= -I. -I$(LIBFT_DIR)
+
+SRC	=	algo_complex.c	bench_utils.c	push.c	swap.c\
+		algo_medium.c	init_stack.c	reverse.c	utils_calc.c\
+		algo_simple.c	main_flag_stack.c	rotate.c	utils_parse.c\
+		bench.c	print_debug.c	select_strat.c	utils_valid.c\
+
+
+OBJ	=	$(SRC:%.c=%.o)
+
+HEADER	=	push_swap.h
+
+all:	$(NAME)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(LIBFT) $(OBJ)
+	cc $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+
+%.o	:	%.c	$(HEADER)
+	cc $(CFLAGS) -c $< -o $@
+	
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re:	fclean all
+
+.PHONY: all clean fclean re
