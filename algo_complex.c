@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   algo_complex.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/17 00:08:34 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/17 10:47:44 by rehlich          ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   algo_complex.c                                    :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/17 00:08:34 by lerodrig         #+#    #+#              */
+/*   Updated: 2026/11/17 11:13:34 by lerodrig        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//Calcula el número máximo de bits (max_bits)
+/*Max number of bits calculation*/
+
 static int	get_max_bits(int size)
 {
 	int	max_index;
@@ -27,7 +28,8 @@ static int	get_max_bits(int size)
 	return (bits);
 }
 
-//Comprueba si la pila A está ordenada
+/*Check if stack A is sorted*/
+
 static int	is_sorted(t_stack *stack)
 {
 	t_node	*curr;
@@ -44,7 +46,8 @@ static int	is_sorted(t_stack *stack)
 	return (1);
 }
 
-//Hace una pasada de ordenación para un bit específico en la pila A.
+/*Make a pass of sorting for a specific bit in stack A*/
+
 static void	radix_pass(t_stack *stack, int bit, int size)
 {
 	int	j;
@@ -65,6 +68,7 @@ static void	radix_pass(t_stack *stack, int bit, int size)
 	while (stack->size_b > 0)
 		pa(stack);
 }
+/*Complex sorting algorithm using radix sort*/
 
 void	algo_complex(t_stack *stack)
 {

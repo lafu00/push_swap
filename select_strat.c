@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   select_strat.c                                    :+:      :+:    :+:    */
+/*   select_strat.c                                     :+:      :+:    :+:   */
 /*                                                   +:+ +:+         +:+      */
 /*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/13 20:01:11 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/15 08:50:31 by rehlich         ###   ########.fr        */
+/*   Updated: 2026/11/17 11:25:09 by lerodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void	select_strat(t_stack *stack)
 			algo_simple(stack);
 			printf("run sort simple\n");
 		}
-		else if (stack->size_a > 5 && stack->disorder >= 0.2 &&
-				stack->disorder < 0.5)
+		else if (stack->size_a > 5 && stack->disorder >= 0.2
+			&& stack->disorder < 0.5)
 		{
 			algo_medium(stack);
 			printf("run sort medium\n");

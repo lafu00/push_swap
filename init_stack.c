@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_stack.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/13 11:01:10 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/13 11:01:34 by rehlich          ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   init_stack.c                                      :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/13 11:01:10 by lerodrig         #+#    #+#              */
+/*   Updated: 2026/11/17 11:22:35 by lerodrig        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// 1. Crea un nodo individual con su valor original y su índice precalculado
+/* Create a single node with its original value and precalculated index */
 
 static t_node	*create_node(int value, int index)
 {
@@ -28,7 +28,7 @@ static t_node	*create_node(int value, int index)
 	return (new_node);
 }
 
-// 2. Construye el Stack A enlazando ambos arrays (valores e índices)
+/* Build the Stack A by linking both arrays (values and indices) */
 
 t_node	*fill_stack_a(int *temp, int *indexed, int size)
 {
@@ -56,7 +56,7 @@ t_node	*fill_stack_a(int *temp, int *indexed, int size)
 	return (head);
 }
 
-// 3. Inicializa la estructura principal con Stack B vacío y contadores a 0
+/* Initialize the main structure with an empty Stack B and counters set to 0 */
 
 t_stack	*init_stack(t_node *a, int size, int flag, double disorder)
 {
@@ -80,7 +80,7 @@ t_stack	*init_stack(t_node *a, int size, int flag, double disorder)
 	return (stack);
 }
 
-// 4. Libera todos los nodos de una lista enlazada
+/* Free all nodes of a linked list */
 
 void	free_nodes(t_node *head)
 {
@@ -94,7 +94,7 @@ void	free_nodes(t_node *head)
 	}
 }
 
-// 5. Limpieza total de ambos stacks y la estructura de control
+/* Clean up all nodes of both stacks and the control structure */
 
 void	free_all(t_stack *stack)
 {
