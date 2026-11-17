@@ -3,10 +3,10 @@
 /*                                                       :::      ::::::::    */
 /*   utils_calc.c                                      :+:      :+:    :+:    */
 /*                                                   +:+ +:+         +:+      */
-/*   By: lerodrig <lerodrig@student.42malaga.com>  #+#  +:+       +#+         */
+/*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/13 17:24:13 by lerodrig         #+#    #+#              */
-/*   Updated: 2026/11/13 17:24:23 by lerodrig        ###   ########.fr        */
+/*   Created: 2026/11/09 00:22:29 by rehlich          #+#    #+#              */
+/*   Updated: 2026/11/09 00:35:12 by rehlich         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	*calc_index(int *temp, int size)
 	int	i;
 	int	j;
 
-	index_array = malloc(sizeof(int)*size);
+	index_array = malloc(sizeof(int) * size);
 	if (!index_array)
 		return (NULL);
 	i = 0;

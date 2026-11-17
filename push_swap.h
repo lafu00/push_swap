@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/04 15:13:18 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/16 22:23:00 by leticiro         ###   ########.fr       */
+/*   Created: 2026/11/04 15:13:18 by rehlich           #+#    #+#             */
+/*   Updated: 2026/11/17 10:43:43 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_stack	*init_stack(t_node *a, int size, int flag, double disorder);
 t_node	*fill_stack_a(int *temp, int *indexed, int size);
 void	free_nodes(t_node *head);
 void	free_all(t_stack *stack);
-t_stack	*build_stack(int *values, int *indexes, int size);
 void	sa(t_stack *stack, int silence);
 void	sb(t_stack *stack, int silence);
 void	ss(t_stack *stack);
@@ -64,7 +63,6 @@ void	rrb(t_stack *stack, int silent);
 void	rrr(t_stack *stack);
 void	pa(t_stack *stack);
 void	pb(t_stack *stack);
-void	print_stack_debug(t_stack *stack);
 void	sort_3(t_stack *stack);
 int		find_lowest_index(t_node *node, int index);
 void	place_min_to_b(t_stack *stack, int index);
@@ -74,8 +72,8 @@ void	print_bench(t_stack *stack);
 void	print_disorder(double disorder);
 void	print_strategy(int mode, double disorder);
 int		disorder_level(double disorder);
-void    algo_simple(t_stack *stack);
-void    algo_medium(t_stack *stack);
-void    algo_complex(t_stack *stack);
-
+void	print_stack_debug(t_stack *stack);
+void	algo_simple(t_stack *stack);
+void	algo_medium(t_stack *stack);
+void	algo_complex(t_stack *stack);
 #endif

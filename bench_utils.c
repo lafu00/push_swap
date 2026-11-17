@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bench_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/15 21:55:46 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/15 21:56:28 by leticiro         ###   ########.fr       */
+/*   Updated: 2026/11/17 10:54:48 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_strategy(int mode, double disorder)
 		ft_putstr_fd("Adaptive / ", 2);
 		level = disorder_level(disorder);
 		if (level == 0)
-			ft_putstr_fd("O(n)", 2);
+			ft_putstr_fd("O(n²)", 2);
 		else if (level == 1)
 			ft_putstr_fd("O(n√n)", 2);
 		else

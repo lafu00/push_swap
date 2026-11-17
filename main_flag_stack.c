@@ -32,7 +32,7 @@ static int	*fill_and_check(char **total, int size)
 	int	i;
 	int	error;
 
-	temp = malloc(sizeof(int)*size);
+	temp = malloc(sizeof(int) * size);
 	if (!temp)
 		return (NULL);
 	i = 0;
@@ -63,7 +63,7 @@ static t_stack	*build_program(int *temp, int size, int flag, double disorder)
 	printf("Elementos en el stack: %i\n", size);
 	printf("Disorder: %f\n", disorder);
 	stack_a = fill_stack_a(temp, indexed, size);
-	while (i < size)
+	while (temp[i])
 	{
 		printf("Total Indice: %i %i\n", temp[i], indexed[i]);
 		i++;
@@ -106,7 +106,7 @@ int	main(int argc, char **argv)
 	if (!temp)
 		return (write(2, "Error\n", 6), 1);
 	disorder = calc_disorder(temp, size);
-	if (disorder == 0.0 && flag < 10)
+	if (disorder == 0.0)
 		return (free(temp), 0);
 	stack = build_program(temp, size, flag, disorder);
 	if (!stack)

@@ -27,7 +27,8 @@ void	print_stack_debug(t_stack *stack)
 	printf("\n--- CONTENIDO DEL STACK A (Tamano: %d) ---\n", stack->size_a);
 	while (curr)
 	{
-		printf("Pos [%d] -> Valor: %d | Indice: %d\n", pos, curr->value, curr->index);
+		printf("Pos [%d] -> Valor: %d | Indice: %d\n", pos,
+			curr->value, curr->index);
 		curr = curr->next;
 		pos++;
 	}

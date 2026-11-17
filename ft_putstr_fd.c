@@ -16,12 +16,11 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	//size_t	i;
 	size_t	size;
 
+	size = 0;
 	if (!s)
 		return ;
-	size = 0;
 	while (s[size] != '\0')
 		size++;
 	write(fd, s, size);

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   algo_complex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leticiro <leticiro@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/17 00:08:34 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/17 00:08:52 by leticiro         ###   ########.fr       */
+/*   Updated: 2026/11/17 10:47:44 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "push_swap.h"
 
@@ -27,6 +26,7 @@ static int	get_max_bits(int size)
 		bits++;
 	return (bits);
 }
+
 //Comprueba si la pila A está ordenada
 static int	is_sorted(t_stack *stack)
 {
@@ -43,6 +43,7 @@ static int	is_sorted(t_stack *stack)
 	}
 	return (1);
 }
+
 //Hace una pasada de ordenación para un bit específico en la pila A.
 static void	radix_pass(t_stack *stack, int bit, int size)
 {
@@ -64,6 +65,7 @@ static void	radix_pass(t_stack *stack, int bit, int size)
 	while (stack->size_b > 0)
 		pa(stack);
 }
+
 void	algo_complex(t_stack *stack)
 {
 	int	max_bits;

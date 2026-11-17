@@ -1,0 +1,99 @@
+Sí, debes incrementar tanto count_op como la posición correspondiente de static_op cada vez que el movimiento sea válido, asegurando además de enlazar bien los punteros prev de tu lista doblemente enlazada.
+Como tienes una estructura central t_stack (ideal para llevar el control de métricas, estrategias y el benchmark), lo mejor es pasarle directamente t_stack *stack a tus funciones de movimiento.
+
+1. Define un enum para tu array static_op[11]
+
+Como push_swap tiene exactamente 11 operaciones (sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr), crear un enum en tu .h te evitará recordar qué índice numérico corresponde a cada movimiento:
+c
+typedef enum e_op
+{
+	OP_SA,
+	OP_SB,
+	OP_SS,
+	OP_PA,
+	OP_PB,
+	OP_RA,
+	OP_RB,
+	OP_RR,
+	OP_RRA,
+	OP_RRB,
+	OP_RRR
+}	t_op;
+Usa el código con precaución.
+
+2. Función base swap_nodes (Lista doblemente enlazada)
+
+Al tener un puntero prev en cada nodo, al intercambiar el primero y el segundo tienes que actualizar cuatro enlaces (además de la cabeza de la pila y el puntero last si solo había dos nodos).
+c
+static int	swap_nodes(t_node **top, t_node **last)
+{
+	t_node	*first;
+	t_node	*second;
+
+	if (!top || !*top || !(*top)->next)
+		return (0);
+	first = *top;
+	second = first->next;
+	first->next = second->next;
+	if (second->next)
+		second->next->prev = first;
+	else if (last)
+		*last = first;
+	second->prev = NULL;
+	second->next = first;
+	first->prev = second;
+	*top = second;
+	return (1);
+}
+Usa el código con precaución.
+• Retorno int: Devuelve 1 si el intercambio se realizó y 0 si no había suficientes nodos. Esto evita sumar operaciones falsas a tus contadores si se llama a sa con 0 o 1 elemento.
+• Cuidado con last: En tu t_stack tienes un solo puntero last (asumo que es para top_a). Si top_a tenía exactamente 2 nodos y haces sa, el que era primero pasa a ser el último, por eso actualizamos *last = first. Para top_b puedes pasar NULL en ese parámetro.
+
+3. Implementación de sa, sb y ss con contadores
+
+Ahora cada movimiento actualiza tus estadísticas en t_stack e imprime la instrucción (si no estás en modo silencioso o según cómo manejes bench_mode):
+c
+void	sa(t_stack *stack, int print)
+{
+	if (!stack || !swap_nodes(&stack->top_a, &stack->last))
+		return ;
+	stack->count_op++;
+	stack->static_op[OP_SA]++;
+	if (print)
+		write(1, "sa\n", 3);
+}
+
+void	sb(t_stack *stack, int print)
+{
+	if (!stack || !swap_nodes(&stack->top_b, NULL))
+		return ;
+	stack->count_op++;
+	stack->static_op[OP_SB]++;
+	if (print)
+		write(1, "sb\n", 3);
+}
+
+void	ss(t_stack *stack, int print)
+{
+	int	done_a;
+	int	done_b;
+
+	if (!stack)
+		return ;
+	done_a = swap_nodes(&stack->top_a, &stack->last);
+	done_b = swap_nodes(&stack->top_b, NULL);
+	if (!done_a && !done_b)
+		return ;
+	stack->count_op++;
+	stack->static_op[OP_SS]++;
+	if (print)
+		write(1, "ss\n", 3);
+}
+Usa el código con precaución.
+
+Detalles clave a vigilar
+
+• Inicialización: Antes de empezar a contar, asegúrate de inicializar count_op = 0 y poner a 0 las 11 posiciones de static_op (por ejemplo con ft_bzero(stack->static_op, sizeof(long) * 11)).
+• Conteo en ss: Fíjate que ss llama directamente a swap_nodes y no a sa() y sb(). Si llamaras a sa() y sb() dentro de ss(), sumarías 3 operaciones al contador (sa + sb + ss) en lugar de 1 sola (ss).
+Si quieres, podemos seguir con los movimientos push (pa, pb) o rotate (ra, rb, rra, rrb), donde el manejo de tu puntero last y prev te va a permitir hacer las rotaciones inversas en tiempo O(1) sin recorrer la lista. ¿Seguimos con esos?
+
