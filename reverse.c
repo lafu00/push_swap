@@ -6,7 +6,7 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 11:43:59 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/16 10:38:00 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/18 11:29:33 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	rra(t_stack *stack, int silent)
 	reverse(&(stack->top_a));
 	if (!silent)
 	{
-		if (!stack->bench_mode)
-			write(1, "rra\n", 4);
+		write(1, "rra\n", 4);
 		stack->count_op++;
 		stack->stat_op[8]++;
 	}
@@ -49,8 +48,7 @@ void	rrb(t_stack *stack, int silent)
 	reverse(&(stack->top_b));
 	if (!silent)
 	{
-		if (!stack->bench_mode)
-			write(1, "rrb\n", 4);
+		write(1, "rrb\n", 4);
 		stack->count_op++;
 		stack->stat_op[9]++;
 	}
@@ -73,8 +71,7 @@ void	rrr(t_stack *stack)
 	}
 	if (executed)
 	{
-		if (!stack->bench_mode)
-			write(1, "rrr\n", 4);
+		write(1, "rrr\n", 4);
 		stack->count_op++;
 		stack->stat_op[10]++;
 	}

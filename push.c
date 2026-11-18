@@ -6,7 +6,7 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 11:51:49 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/16 10:37:29 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/18 11:30:25 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	pa(t_stack *stack)
 	push(&(stack->top_b), &(stack->top_a));
 	stack->size_b--;
 	stack->size_a++;
-	if (!stack->bench_mode)
-		write(1, "pa\n", 3);
+	write(1, "pa\n", 3);
 	stack->count_op++;
 	stack->stat_op[3]++;
 }
@@ -49,8 +48,7 @@ void	pb(t_stack *stack)
 	push(&(stack->top_a), &(stack->top_b));
 	stack->size_a--;
 	stack->size_b++;
-	if (!stack->bench_mode)
-		write(1, "pb\n", 3);
+	write(1, "pb\n", 3);
 	stack->count_op++;
 	stack->stat_op[4]++;
 }

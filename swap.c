@@ -6,7 +6,7 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 11:17:57 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/16 10:36:35 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/18 11:27:50 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	sa(t_stack *stack, int silent)
 	swap(&(stack->top_a));
 	if (!silent)
 	{
-		if (!stack->bench_mode)
-			write(1, "sa\n", 3);
+		write(1, "sa\n", 3);
 		stack->count_op++;
 		stack->stat_op[0]++;
 	}
@@ -51,8 +50,7 @@ void	sb(t_stack *stack, int silent)
 	swap(&(stack->top_b));
 	if (!silent)
 	{
-		if (!stack->bench_mode)
-			write(1, "sb\n", 3);
+		write(1, "sb\n", 3);
 		stack->count_op++;
 		stack->stat_op[1]++;
 	}
@@ -75,8 +73,7 @@ void	ss(t_stack *stack)
 	}
 	if (executed)
 	{
-		if (!stack->bench_mode)
-			write(1, "ss\n", 3);
+		write(1, "ss\n", 3);
 		stack->count_op++;
 		stack->stat_op[2]++;
 	}
