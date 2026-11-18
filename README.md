@@ -1,46 +1,57 @@
-*Este proyecto ha sido creado como parte del currículo de 42 por lafu00, lerodrig.*
+*Este proyecto ha sido creado como parte del currículo de 42 por rehlich, lerodrig.*
 
 # push_swap
 
 ## Descripción
 
-`push_swap` es un proyecto pertenece al Milestone 1 del currículo de 42 y su objetivo es ordenar una
-secuencia de enteros usando dos pilas, A y B, mediante un conjunto limitado de
-operaciones. El programa calcula una secuencia de movimientos para dejar los
-valores de A ordenados de menor a mayor.
+`push_swap` es un proyecto que pertenece al Milestone 1 del currículo de 42 y su objetivo es ordenar unasecuencia de enteros usando dos pilas, A y B, mediante un conjunto filo de 11
+operaciones. El programa no ordena los números directamente sino que imprime la lista de operaciones que, ejecutadas sobre la pila A, la dejan ordenada de menor a mayor (con B vacía). La calidad del proyecto se mide por el número de operaciones generadas.
 
-Antes de ordenar, los argumentos se validan y cada valor recibe un índice consecutivo 
-según su posición en el orden. Los algoritmos trabajan con esos índices, lo que simplifica las
-comparaciones y permite ordenar valores negativos o de magnitudes distintas.
+Visión general del funcionamiento:
+ 
+1. Antes de ordenar, se leen y validan los argumentos.
+2. Se calcula el **índice de desorden** de la entrada (entre 0 y 1) *antes* de
+   hacer ningún movimiento.
+3. Cada valor recibe un **índice** (su posición en el orden: 0 el menor,
+   n-1 el mayor). Los algoritmos trabajan con estos índices, lo que permite
+   ordenar números negativos o de magnitudes muy distintas sin cambiar nada.
+4. Se elige una **estrategia** (forzada por una bandera o adaptativa) y se
+   generan las operaciones.
+5. Si se pidió `--bench`, se escribe un resumen de métricas en `stderr`.
 
-Cada pila se implementa como una lista doblemente enlazada. Cada nodo almacena
-el valor original, su índice y los punteros `next` y `prev`. Las operaciones
-`push`, `swap`, `rotate` y `reverse rotate` manipulan estas listas y actualizan
-sus tamaños. Se incluyen rutinas especiales para entradas pequeñas, tres
+Cada pila es una **lista doblemente enlazada**: cada nodo guarda el valor
+original, su índice y los punteros `next` y `prev`. Las operaciones no copian
+datos: *reenlazan* nodos existentes, por lo que `push`, `swap`, `rotate` y `reverse rotate` 
+manipulan estas listas y actualizan sus tamaños.
+
+Además, se incluyen rutinas especiales para entradas pequeñas, tres
 estrategias generales, selección adaptativa y un modo benchmark.
+
+### Diagrama de flujo del programa
 
 ## Instrucciones
 
 ### Requisitos
 
-- cc `-Wall -Wextra -Werror`.
+- Compilador `cc` con `-Wall -Wextra -Werror`.
 - `make`.
-- Una plataforma compatible con la libft incluida en Libft/
+- La `libft` incluida en el directorio `libft/` (se compila automáticamente).
 
 ### Compilación
 
 Desde la raíz del repositorio:
 
 ```sh
-make # Compila push_swap
-make bonus # Compila el checker
+make          # compila push_swap
+make bonus    # compila checker (parte bonus)
+make clean    # borra los .o
+make fclean   # borra .o y ejecutables
+make re       # recompila todo
 ```
-
-El ejecutable generado se llama `push_swap`. El `Makefile` compila también la biblioteca `libft` incluida en el repositorio.
 
 ### Ejecución
 
-Se pueden pasar los números como argumentos separados o como una cadena:
+Los números se pueden pasar como argumentos separados o como una cadena:
 
 ```sh
 ./push_swap 4 2 3 1
@@ -49,14 +60,16 @@ Se pueden pasar los números como argumentos separados o como una cadena:
 
 También se puede elegir explícitamente la estrategia o activar las métricas:
 
-```text
---simple     Selecciona la estrategia simple
---medium     Selecciona la estrategia medium
---complex    Selecciona la estrategia complex
---adaptive   Selecciona la estrategia adaptativa (predeterminada)
---bench      Activa el informe de benchmark
-```
-Las banderas de estrategia son mutuamente excluyentes. --adaptive es la estrategia utilizada por defecto cuando no se indica otra. --bench no mezcla las métricas con la solución: las instrucciones siguen saliendo por stdout y el resumen se escribe en stderr.
+ 
+| Bandera       | Efecto                                                      |
+|---------------|-------------------------------------------------------------|
+| `--simple`    | Fuerza la estrategia simple                                 |
+| `--medium`    | Fuerza la estrategia intermedia                             |
+| `--complex`   | Fuerza la estrategia compleja                               |
+| `--adaptive`  | Estrategia adaptativa (**por defecto** si no se indica otra)|
+| `--bench`     | Escribe métricas por `stderr`                               |
+
+Las banderas de estrategia son mutuamente excluyentes. Las operaciones salen por `stdout`y el resumen del `--bench` por `stderr`, para que ambas no se mezclen. `--adaptive` es la estrategia utilizada por defecto cuando no se indica otra.
 
 Por ejemplo:
 
@@ -66,50 +79,115 @@ Por ejemplo:
 
 El benchmark informa del desorden, la estrategia y el recuento total y por tipo de operación en la salida de error. Sin `--bench`, el programa está pensado para emitir los movimientos por la salida estándar.
 
-Una comprobación habitual combina ambos programas:
-
+### Ejemplos de uso
+ 
 ```sh
-./push_swap 4 1 3 2 | ./checker 4 1 3 2
-# OK
+# Estrategia por defecto (adaptativa)
+./push_swap 4 2 3 1
+ 
+# Forzar una estrategia
+./push_swap --simple 5 4 3 2 1
+ 
+# Verificar con el checker de 42 o con el nuestro
+ARG="4 67 3 87 23"; ./push_swap --complex $ARG | ./checker_linux $ARG
+ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker $ARG       # OK
+ 
+# Contar operaciones con 500 números aleatorios
+ARG=$(shuf -i 0-9999 -n 500 | tr '\n' ' '); ./push_swap $ARG | wc -l
+ 
+# Solo métricas (descartando las operaciones)
+./push_swap --bench --adaptive $ARG > /dev/null
+ 
+# Guardar las métricas en un fichero
+./push_swap --bench $ARG 2> bench.txt | ./checker $ARG
 ```
-
-Para limpiar los archivos generados:
-
+ 
+Manejo de errores (siempre `Error\n` por `stderr`):
+ 
 ```sh
-make clean
-make fclean
+$ ./push_swap --adaptive 0 one 2 3
+Error
+$ ./push_swap --simple 3 2 3
+Error
 ```
+ 
+Sin argumentos no se muestra nada. Si la lista ya está ordenada tampoco se
+imprime ninguna operación.
+
+### Salida de `--bench`
+ 
+Por `stderr` se muestra, en este orden: el índice de desorden (como porcentaje
+con dos decimales), la estrategia usada con su complejidad, el total de
+operaciones y el desglose por tipo (`sa sb ss pa pb`, `ra rb rr rra rrb rrr`).
+La suma del desglose coincide siempre con el total.
 
 ## Algoritmos: selección y justificación
 
-Las estrategias se aplican sobre índices normalizados, no directamente sobre
-los valores. Así, Radix puede operar sobre enteros no negativos y el algoritmo
-no depende de la magnitud ni del signo de los datos originales. 
+Las estrategias se aplican sobre índices normalizados (0.... n-1), no directamente sobre
+los valores. Los motivos de esta decisión son: 
+1. Los números negativos o muy grandes dejan de ser un problema.
+2. Radix necesita enteros no negativos para examinar sus bits.
+3. Comparar índices consecutivos permite saber siempre cuál es "el siguiente" que toca
+colocar sin comparar valores arbitrarios.
 
-La selección adaptativa mide el desorden como la proporción de pares que están fuera de orden y usa estos umbrales: <  `0.2` para Simple, <= `0.2` a <`0.5` para Medium y >=`0.5` para Complex.
+El **índice de desorden** es una métrica previa (de `0` a `1`) que indica como de desordenada esta la lista antes de ejecutar el algoritmo. El programa revisa todas las parejas posibles de números y calcula qué porcentaje está en el orden incorrecto. 
+- Vale `0` si La lista ya está ordenada.
+- Vale `0.5` si la lista está desordenada de forma aleatoria.
+- Vale `1` si la lista está totalmente invertida (de mayor a menor).
 
-- **Entradas de hasta cinco elementos:** se resuelven con rutinas específicas
-  (`sort_3` y `sort_5`). En estos tamaños pequeños, los casos explícitos
-  permiten controlar los movimientos sin necesidad de preparar una estrategia
-  general.
-- **Simple:** lleva a B los índices más pequeños, ordena los elementos
-  restantes y los devuelve a A. Se incluye como una estrategia sencilla para
-  entradas con poco desorden. La búsqueda repetida del mínimo recorre la pila,
-  por lo que su coste de recorrido es cuadrático, `O(n²)`.
-- **Medium:** divide los índices en rangos (chunks) cuyo tamaño se calcula a
-  partir de la raíz cuadrada del número de elementos. Los mueve a B y luego
-  busca y devuelve a A los índices en orden descendente. Esta distribución
-  busca reducir recorridos y movimientos frente a la estrategia Simple en
-  entradas de desorden intermedio. Aunque el benchmark etiqueta esta
+Este cálculo se hace internamente sobre un array antes de empezar. No gasta movimientos reales de `push_swap` (`sa`, `pb`, `ra`, etc.).
+
+**Entradas muy pequeñas (n <= 5):** 
+  Se resuelven con rutinas específicas (`sort_3` y `sort_5`). En estos tamaños pequeños, los casos explícitos permiten controlar los movimientos sin necesidad de preparar una estrategia
+  general ya que el número de movimientos es mínimo.
+**Estrategia Simple: estracción del mínimo - O(n²)** 
+  Se busca el elemento con menor índice en A, se lleva a la cima con `ra` o `rra`
+  (la dirección más corta), se pasa a B con `pb`, y se repite. Al final se
+  devuelven todos con `pa`, quedando A ordenada de menor a mayor.
+ 
+- **Por qué:** la clase de complejidad O(n²) es más sencilla de razonar y demostrar: cada uno de
+  los n elementos cuesta hasta n/2 rotaciones. Es el caso base para comparar y funciona bien con pocos elementos o con listas casi ordenadas, donde el mínimo suele estar cerca de la cima.
+
+**Estrategia intermedia: chunks - O(n√n)** 
+  Divide los índices en rangos (chunks) cuyo tamaño se calcula a
+  partir de la raíz cuadrada del número de elementos. Se recorre A y se envían a B los elementos del rango actual (los de la mitad baja del rango
+  se rotan hacia el fondo de B para dejarlos ordenados a grandes rasgos). Después
+  se devuelven a A buscando en B el mayor índice restante (descendente), por lo que
+  que A queda ordenada. 
+  
+  - **Por qué:** la clase de complejidad O(n√n) busca reducir recorridos y movimientos frente a la estrategia Simple en entradas de desorden intermedio. Aunque el benchmark etiqueta esta
   estrategia como `O(n√n)`, la implementación busca el siguiente índice en B
   mediante recorridos repetidos; por ello, el coste de búsqueda puede llegar a
   `O(n²)`. El número concreto de movimientos también depende de la entrada y
   de las rotaciones necesarias.
-- **Complex (Radix binario):** recorre los bits de los índices desde el menos
-  significativo. En cada pasada, mueve a B los índices cuyo bit actual es
-  cero (`pb`) y rota A para los que tienen un uno (`ra`); después devuelve B a
-  A (`pa`). Se repite por cada bit necesario para representar el índice máximo. El coste esperado en operaciones es `O(n log n)`.
-- **Adaptive (predeterminada):** selecciona una estrategia según el desorden inicial de la entrada.
+
+**Estrategia compleja (Radix binario - O(n log n)):** 
+  Se recorren los bits de los índices desde el menos significativo hasta el más significativo. En cada pasada, mueve a B los índices cuyo bit actual es cero (`pb`) y rota A para los que tienen un uno (`ra`); después devuelve B a A (`pa`). 
+  Se repite por cada bit necesario para representar el índice máximo. El coste esperado en operaciones es `O(n log n)`.
+
+  - **Por qué:** lo usamos para listas muy desordenadas porque ordena los elementos mirando su representación binaria bit a bit. Cada pasada consiste en separar los números según si su bit actual es `0` o `1` y volver a unirlos, lo que cuesta como mucho 2n movimientos. Al repetirlo por cada bit necesario, el coste máximo es siempre 2n. No importa como de desordenada este la lista,nunca se dispara el número de operaciones. Cada pasada mantiene el orden relativo que los números ya tenían de las rondas anteriores, requisito indispensable para que el algoritmo funcione correctamente.
+
+  - **Por qué sobre índices y no valores:** Transformamos los valores reales en índices   simplificados antes de empezar y los índices serán 0..n-1. Esto evita que los números negativos den problemas con los bits y reducimos mucho las pasadas, es decir, pasamos de revisar siempre 32 bits a revisar solo los bits mínimos necesarios para representar el tamaño de la lista.
+
+**Estrategia Adaptiva (por defecto):** Elige estrategia según el índice de desorden calculado al inicio:
+ 
+| Desorden `d`      | Régimen | Estrategia | Objetivo del subject |
+|-------------------|---------|------------|----------------------|
+| `d < 0,2`         | bajo    | simple     | O(n)                 |
+| `0,2 ≤ d < 0,5`   | medio   | medium (chunks) | O(n√n)          |
+| `d ≥ 0,5`         | alto    | complex (radix) | O(n log n)      |
+ 
+- **0,5** es el desorden esperado de una permutación aleatoria (la mitad de los
+  pares están invertidos). Por encima de ese valor la lista se comporta como
+  aleatoria o peor, y solo conviene un método cuyo coste no dependa del orden
+  inicial: Radix, con cota garantizada O(n log n).
+- **0,2** significa que como mucho el 20 % de los pares está invertido: la lista
+  conserva largos tramos ya ordenados. Ahí compensa un método que aproveche ese
+  orden previo (extraer el mínimo desplaza poco cada elemento) en lugar de pagar
+  el coste fijo de Radix.
+- Entre ambos (0,2–0,5) hay desorden parcial: ni tan ordenada como para el
+  método simple, ni tan caótica como para necesitar la garantía de Radix; los
+  chunks dan buen rendimiento a mitad de camino.
 
 ## Recursos
 
@@ -128,15 +206,11 @@ Biblioteca propia incluida en el repositorio, utilizada para funciones auxiliare
 ### Uso de inteligencia artificial: 
 Hemos usado la IA como apoyo para que nos explique algunos conceptos y resolver dudas sobre:
 
-- En la definición de datos y la inicialización de pilas
-  (`push_swap.h`, `init_stack.c`) consultamos sobre listas doblemente enlazadas;
-  para las operaciones `pa` y `pb` (`push.c`), sobre cómo enlazar y desenlazar
-  nodos al moverlos entre A y B. 
-  
-- En la selección y la implementación de
-  algoritmos (`select_strat.c`, `algo_simple.c`, `algo_medium.c` y
-  `algo_complex.c`) consultamos sobre las ideas y complejidades de Simple,
-  Medium y Radix. En particular, para Radix consultamos sobre índices,
-  representación binaria y operadores de bits (`>>` y `&`) empleados en cada
-  pasada. 
+  - En la definición de datos y la inicialización de pilas(`push_swap.h`, `init_stack.c`) consultamos sobre listas doblemente enlazadas; para las operaciones `pa` y `pb` (`push.c`), sobre cómo enlazar y desenlazar nodos al moverlos entre A y B. 
+    
+  - En la selección y la implementación de algoritmos (`select_strat.c`, `algo_simple.c`, `algo_medium.c` y `algo_complex.c`) consultamos sobre las ideas y complejidades de Simple,
+  Medium y Radix. En particular, para Radix consultamos sobre índices,representación binaria y operadores de bits (`>>` y `&`) empleados en cada pasada.
+
+  - En el Benchmark (`bench.c`, `bench_utils.c`) consultamos cómo calcular y mostrar el
+  porcentaje con dos decimales usando solo enteros y escritura por `fd`.
 
