@@ -53,21 +53,11 @@ static t_stack	*build_program(int *temp, int size, int flag, double disorder)
 {
 	int		*indexed;
 	t_node	*stack_a;
-	int		i;
 
 	indexed = calc_index(temp, size);
 	if (!indexed)
 		return (free(temp), NULL);
-	i = 0;
-	printf("Flag: %i\n", flag);
-	printf("Elementos en el stack: %i\n", size);
-	printf("Disorder: %f\n", disorder);
 	stack_a = fill_stack_a(temp, indexed, size);
-	while (temp[i])
-	{
-		printf("Total Indice: %i %i\n", temp[i], indexed[i]);
-		i++;
-	}
 	free(temp);
 	free(indexed);
 	if (!stack_a)
@@ -111,9 +101,7 @@ int	main(int argc, char **argv)
 	stack = build_program(temp, size, flag, disorder);
 	if (!stack)
 		return (write(2, "Error\n", 6), 1);
-	print_stack_debug(stack);
 	select_strat(stack);
 	print_bench(stack);
-	print_stack_debug(stack);
 	return (free_all(stack), 0);
 }

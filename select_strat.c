@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                       :::      ::::::::    */
-/*   select_strat.c                                     :+:      :+:    :+:   */
+/*   select_strat.c                                    :+:      :+:    :+:    */
 /*                                                   +:+ +:+         +:+      */
 /*   By: rehlich <rehlich@student.42malaga.com>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/13 20:01:11 by rehlich          #+#    #+#              */
-/*   Updated: 2026/11/17 11:25:09 by lerodrig         ###   ########.fr       */
+/*   Updated: 2026/11/15 08:50:31 by rehlich         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,41 +88,25 @@ void	select_strat(t_stack *stack)
 	if (!stack || stack->size_a <= 1 || stack->disorder == 0)
 		return ;
 	if (stack->size_a == 2)
-		printf("run sa\n");
+		sa(stack, 0);
 	else if (stack->size_a == 3)
 		sort_3(stack);
 	else if (stack->size_a <= 5)
 		sort_5(stack);
 	else if (stack->strategy == 1)
-	{
-		algo_simple(stack),
-		printf("run sort simple O(n2)\n");
-	}
+		algo_simple(stack);
 	else if (stack->strategy == 2)
-	{
 		algo_medium(stack);
-		printf("run sort medium O(n_sqrt_n)\n");
-	}
 	else if (stack->strategy == 3)
-		printf("run sort complex O(n_Log_n)\n");
+		algo_complex(stack);
 	else
 	{
-		printf("run sort adaptative\n");
 		if (stack->size_a > 5 && stack->disorder < 0.2)
-		{
 			algo_simple(stack);
-			printf("run sort simple\n");
-		}
 		else if (stack->size_a > 5 && stack->disorder >= 0.2
 			&& stack->disorder < 0.5)
-		{
 			algo_medium(stack);
-			printf("run sort medium\n");
-		}
 		else
-		{
 			algo_complex(stack);
-			printf("run sort complex\n");
-		}
 	}
 }
