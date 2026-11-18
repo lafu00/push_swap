@@ -140,6 +140,7 @@ Este cálculo se hace internamente sobre un array antes de empezar. No gasta mov
 **Entradas muy pequeñas (n <= 5):** 
   Se resuelven con rutinas específicas (`sort_3` y `sort_5`). En estos tamaños pequeños, los casos explícitos permiten controlar los movimientos sin necesidad de preparar una estrategia
   general ya que el número de movimientos es mínimo.
+  
 **Estrategia Simple: estracción del mínimo - O(n²)** 
   Se busca el elemento con menor índice en A, se lleva a la cima con `ra` o `rra`
   (la dirección más corta), se pasa a B con `pb`, y se repite. Al final se
