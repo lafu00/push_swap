@@ -1,0 +1,138 @@
+Guía del bonus: el `checker`
+
+### Qué hace el checker
+
+```
+./checker 3 2 1 0          ← recibe la pila A
+rra
+pb                         ← lee instrucciones de stdin, una por línea
+sa
+rra
+pa
+(Ctrl-D, fin de entrada)
+OK                         ← A ordenada y B vacía → OK; si no, KO
+```
+
+Reglas del subject:
+- Sin argumentos: termina sin mostrar nada.
+- OK / KO van a stdout, con `\n`.
+- Error va a stderr, si: algún argumento no es entero o se pasa de `int`, hay duplicados, o una instrucción no existe o no tiene el formato correcto.
+- Los ficheros del bonus se llaman `*_bonus.c` y `*_bonus.h`, y el Makefile necesita una regla `bonus`. Permitidas: `read`, `write`, `malloc`, `free`, `exit`, `ft_printf` y vuestra libft.
+
+### Qué necesitais:
+
+| `get_next_line` | Leer las instrucciones de stdin, **una línea por llamada** |
+| Una función que aplica una instrucción | Traduce `"sa"`, `"pb"`... a la operación y la ejecuta (o dice que no es válida) |
+| Una función que comprueba el resultado | ¿A ordenada y B vacía? |
+| El `main` del checker | Valida argumentos, crea la pila y une todo lo anterior |
+| **Operaciones silenciosas** | Ver más abajo (es lo que más se olvida) |
+
+### Paso a paso
+
+Paso 1: `get_next_line`.
+
+Copia los ficheros del proyecto que ya hicisteis. 
+Si tenéis la versión con bonus `get_next_line_bonus.c/.h`, encaja con la regla del subject. 
+Necesita `BUFFER_SIZE`; ---> ponerlo en el Makefile (`-D BUFFER_SIZE=42`).
+
+Paso 2: los argumentos.
+
+Podeis usar `matrix`, `is_valid_number`, `ft_atol` e `if_duplicates`, pero hay tres matices:
+- No llames a `extract_flags`. El checker no tiene flags, así que `--simple` debe dar `Error` como cualquier no-número.
+- `./checker "" 1` debe dar `Error`(el subject lo muestra). Vuestro `matrix` hace `ft_split` y descarta los argumentos vacíos, 
+así que ese caso hay que tratarlo a mano.
+- `count_and_validate`, `fill_and_check` y `parse_args` son `static` en `main_flag_stack.c`, así que no se pueden reutilizar. 
+Habrá que copiarlas a un fichero `_bonus`.
+
+Paso 3: crear la pila.
+
+`fill_stack_a` e `init_stack` valen. El checker no necesita los índices ni el desorden, así que pasad lo que sea (por ejemplo `calc_index` y un flag cualquiera).
+
+Paso 4: las operaciones silenciosas.
+
+Este es el punto clave. Vuestras operaciones del programa principal escriben `sa\n`, `pb\n`... por stdout y cuentan. 
+En el checker eso no puede pasar: si el checker imprimiera `pb`, rompería su propia salida (`OK`/`KO`). 
+Tenéis dos opciones:
+- A (la más limpia): en ficheros `_bonus` copiad el núcleo de cada operación (`swap`, `push`, `rotate`, `reverse`, que ahora son `static`) 
+y haced 11 funciones con los mismos efectos pero sin `write` ni contadores. 
+- B: añadir un parámetro o un campo "silencioso" a las funciones actuales. Funciona, pero toca el código de la parte obligatoria. Yo prefiero la A.
+
+Paso 5: leer y aplicar. Esquema del `main` (pseudocódigo):
+
+```
+si argc == 1: terminar sin mostrar nada
+validar argumentos (sin flags): si falla → "Error\n" por stderr, return 1
+crear pila A (B vacía)
+error = 0
+mientras (linea = get_next_line(0)):
+	quitar el '\n' final de la línea
+	si no hay error y la instrucción es válida: ejecutarla
+	si no: error = 1
+	free(linea)
+si error: "Error\n" por stderr
+si no, si A ordenada y B vacía: "OK\n" por stdout
+si no: "KO\n" por stdout
+liberar todo
+```
+
+
+Paso 6: aplicar una instrucción. 
+
+Compara con el nombre **completo**, sin que `ra` coincida con el principio de `rra`. 
+El truco que ya usáis en `extract_flags` (comparar con la longitud + 1, para incluir el `\0`) sirve aquí:
+
+```c
+static int	is_op(char *line, char *name)
+{
+	return (ft_strncmp(line, name, ft_strlen(name) + 1) == 0);
+}
+```
+
+Una cadena de once `if` (`if (is_op(line, "sa")) { sa(s); return (1); }`...) no cabe en 25 líneas, así que dividid en dos funciones (por ejemplo, swap y push en una, rotaciones en otra). 
+Si ninguna coincide, devuelve 0.
+
+Paso 7: comprobar el resultado.
+
+Una función que devuelva 1 si `size_b == 0` y cada nodo de A tiene un `value` menor que el siguiente (comparad `value`, no `index`, porque en el checker el índice no se usa).
+
+### Makefile
+
+Una regla `bonus` sin relink (el orden de los nombres es solo un esquema, adaptadlo al vuestro):
+
+```make
+BONUS_NAME = checker
+
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(BONUS_OBJ) $(SHARED_OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $^ -o $@
+```
+
+`SHARED_OBJ` serían los objetos de parseo y de la pila que reutilizáis, **sin el que contiene el `main` de `push_swap`**. Si hay dos `main` enlazados, no compila.
+
+### Cómo probarlo
+
+Los dos primeros son los del propio subject:
+
+```
+printf "rra\npb\nsa\nrra\npa\n" | ./checker 3 2 1 0    → OK
+printf "sa\nrra\npb\n"          | ./checker 3 2 1 0    → KO
+./checker 3 2 one 0                                    → Error
+./checker "" 1                                         → Error
+printf "xx\n" | ./checker 1 2                          → Error
+./checker                                              → (nada)
+printf "" | ./checker 1 2 3                            → OK   (sin instrucciones y ordenada)
+printf "" | ./checker 2 1                              → KO
+```
+
+Después, cruzadlo con el vuestro y con el oficial:
+
+```
+ARG=$(shuf -i 0-9999 -n 100 | tr '\n' ' ')
+./push_swap $ARG | ./checker $ARG          → OK
+./push_swap $ARG | ./checker_linux $ARG    → mismo resultado
+```
+
+Probad además las cosas raras (una línea en blanco, `sa ` con un espacio, una instrucción inválida en medio, la última línea sin `\n`) 
+comparando siempre con `checker_linux`: el subject dice que no hace falta replicarlo al milímetro, pero es la mejor guía para decidir. 
+Pasad `valgrind` o `-fsanitize=address` con una instrucción inválida en el medio, para comprobar lo del `get_next_line`.
