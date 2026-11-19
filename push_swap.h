@@ -39,14 +39,6 @@ typedef struct s_stack
 	double	disorder;
 }	t_stack;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1024
-# endif
-
 char	**matrix(int argc, char **argv);
 void	free_matrix(char **total);
 int		extract_flags(char **total);
@@ -82,12 +74,4 @@ int		disorder_level(double disorder);
 void	algo_simple(t_stack *stack);
 void	algo_medium(t_stack *stack);
 void	algo_complex(t_stack *stack);
-char	*get_next_line(int fd);
-int		is_sorted_bonus(t_stack *stack);
-int		run_mov(t_stack *stack, char *line);
-int		input_mov(t_stack *stack);
-size_t	ft_strlenb(char *str);
-char	*ft_strchrb(char *s, int c);
-char	*ft_strjoinb(char *s1, char *s2);
-char	*ft_substrb(char *s, size_t start, size_t len);
 #endif
