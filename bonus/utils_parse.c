@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 13:35:11 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/17 10:45:08 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:35:59 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static void	check_spaces(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/18 14:51:08 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/18 16:59:57 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:36:04 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 int	is_sorted_bonus(t_stack *stack)
 {

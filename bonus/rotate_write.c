@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 11:26:17 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/18 11:28:55 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:36:19 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static void	rotate(t_node **head)
 {

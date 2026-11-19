@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 11:04:18 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/18 17:22:25 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:38:01 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 char	*ft_strjoin_free(char *line, char *temp)
 {

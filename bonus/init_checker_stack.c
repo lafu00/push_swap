@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 11:01:10 by lerodrig          #+#    #+#             */
-/*   Updated: 2026/11/18 15:35:16 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:36:48 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static t_node	*create_node(int value, int index)
 {

@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 11:51:49 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/18 11:30:33 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:36:28 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static void	push(t_node **ori, t_node **dest)
 {

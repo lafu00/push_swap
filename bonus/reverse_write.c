@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 11:43:59 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/18 11:30:00 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:36:24 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static void	reverse(t_node **head)
 {

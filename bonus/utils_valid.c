@@ -6,11 +6,11 @@
 /*   By: rehlich <rehlich@student.42malaga.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/04 13:35:11 by rehlich           #+#    #+#             */
-/*   Updated: 2026/11/18 16:35:07 by rehlich          ###   ########.fr       */
+/*   Updated: 2026/11/19 11:35:52 by rehlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 int	is_valid_number(char **matrix)
 {
