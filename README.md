@@ -174,7 +174,7 @@ Este cálculo se hace internamente sobre un array antes de empezar. No gasta mov
  
 | Desorden `d`      | Régimen | Estrategia | Objetivo del subject |
 |-------------------|---------|------------|----------------------|
-| `d < 0,2`         | bajo    | simple     | O(n)                 |
+| `d < 0,2`         | bajo    | simple     | O(n2)                 |
 | `0,2 ≤ d < 0,5`   | medio   | medium (chunks) | O(n√n)          |
 | `d ≥ 0,5`         | alto    | complex (radix) | O(n log n)      |
  
