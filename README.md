@@ -132,13 +132,13 @@ El **índice de desorden** es una métrica previa (de `0` a `1`) que indica como
 - Vale `0.5` si la lista está desordenada de forma aleatoria.
 - Vale `1` si la lista está totalmente invertida (de mayor a menor).
 
-Este cálculo se hace internamente sobre un array antes de empezar. No gasta movimientos reales de `push_swap` (`sa`, `pb`, `ra`, etc.).
+Este cálculo se hace internamente sobre un array antes de empezar. No usa movimientos reales de `push_swap` (`sa`, `pb`, `ra`, etc.).
 
 **Entradas muy pequeñas (n <= 5):** 
   Se resuelven con rutinas específicas (`sort_3` y `sort_5`). En estos tamaños pequeños, los casos explícitos permiten controlar los movimientos sin necesidad de preparar una estrategia
   general ya que el número de movimientos es mínimo.
   
-**Estrategia Simple: estracción del mínimo - O(n²)** 
+**Estrategia Simple: extracción del mínimo - O(n²)** 
   Se busca el elemento con menor índice en A, se lleva a la cima con `ra` o `rra`
   (la dirección más corta), se pasa a B con `pb`, y se repite. Al final se
   devuelven todos con `pa`, quedando A ordenada de menor a mayor.
