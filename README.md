@@ -4,8 +4,7 @@
 
 ## Descripción
 
-`push_swap` es un proyecto que pertenece al Milestone 1 del currículo de 42 y su objetivo es ordenar unasecuencia de enteros usando dos pilas, A y B, mediante un conjunto filo de 11
-operaciones. El programa no ordena los números directamente sino que imprime la lista de operaciones que, ejecutadas sobre la pila A, la dejan ordenada de menor a mayor (con B vacía). La calidad del proyecto se mide por el número de operaciones generadas.
+`push_swap` es un proyecto que pertenece al Milestone 1 del currículo de 42 y su objetivo es ordenar una secuencia de enteros usando dos pilas, A y B, mediante un conjunto filo de 11 operaciones. El programa no ordena los números directamente sino que imprime la lista de operaciones que, ejecutadas sobre la pila A, la dejan ordenada de menor a mayor (con B vacía). La calidad del proyecto se mide por el número de operaciones generadas.
 
 Visión general del funcionamiento:
  
@@ -318,7 +317,7 @@ Hemos usado la IA como apoyo para que nos explique algunos conceptos y resolver 
   - En la definición de datos y la inicialización de pilas(`push_swap.h`, `init_stack.c`) consultamos sobre listas doblemente enlazadas; para las operaciones `pa` y `pb` (`push.c`), sobre cómo enlazar y desenlazar nodos al moverlos entre A y B. 
     
   - En la selección y la implementación de algoritmos (`select_strat.c`, `algo_simple.c`, `algo_medium.c` y `algo_complex.c`) consultamos sobre las ideas y complejidades de Simple,
-  Medium y Radix. En particular, para Radix consultamos sobre índices,representación binaria y operadores de bits (`>>` y `&`) empleados en cada pasada.
+  Medium y Complex. En particular para Complex donde usamos Radix, consultamos sobre índices, representación binaria y operadores de bits (`>>` y `&`) empleados en cada pasada.
 
   - En el Benchmark (`bench.c`, `bench_utils.c`) consultamos cómo calcular y mostrar el
   porcentaje con dos decimales usando solo enteros y escritura por `fd`.
