@@ -27,8 +27,6 @@ manipulan estas listas y actualizan sus tamaños.
 Además, se incluyen rutinas especiales para entradas pequeñas, tres
 estrategias generales, selección adaptativa y un modo benchmark.
 
-### Diagrama de flujo del programa
-
 ## Instrucciones
 
 ### Requisitos
