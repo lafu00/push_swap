@@ -190,6 +190,113 @@ Este cálculo se hace internamente sobre un array antes de empezar. No gasta mov
   método simple, ni tan caótica como para necesitar la garantía de Radix; los
   chunks dan buen rendimiento a mitad de camino.
 
+## Reparto del trabajo
+ 
+El plan de trabajo lo diseñó **rehlich**, que además marcó el orden de las
+tareas y tomó las decisiones de arquitectura. Las decisiones principales, como
+usar listas doblemente enlazadas y construir primero un `main` completo para
+extraer después las funciones, se tomaron de forma conjunta. El desarrollo ha
+sido principalmente conjunto, con revisión cruzada continua del código, y las
+dos podemos explicar y defender cualquier parte.
+ 
+### Trabajo conjunto
+ 
+- **`main` del programa** (`main_flag_stack.c`): punto de partida del proyecto,
+  desarrollado primero completo y refactorizado después en funciones.
+- **Parseo y validación de argumentos:** unión de argumentos, separación en
+  números, comprobación de enteros, rango de `int` y duplicados
+  (`utils_parse.c`, `utils_valid.c`).
+- **Gestión de banderas** (`--simple`, `--medium`, `--complex`, `--adaptive`,
+  `--bench`) en `utils_parse.c`.
+- **Cabecera `push_swap.h`.**
+- **Documentación y justificación** de las estrategias y de los movimientos.
+- **Diseño del `checker`.**
+- **Pruebas y verificación:** comparación con el `checker` oficial y el propio,
+  medición de operaciones con 100 y 500 números, revisión de memoria y de la
+  norma.
+- **Revisión cruzada** del código y corrección mutua de errores.
+
+### Trabajo de rehlich
+ 
+- **Planificación y coordinación** del proyecto.
+- **Cálculo del índice de desorden y de los índices normalizados**
+  (`utils_calc.c`).
+- **Movimientos:** `swap.c`, `rotate.c` y `reverse.c`.
+- **Estrategias:** selección de estrategia (`select_strat.c`), simple
+  (`algo_simple.c`) y medium (`algo_medium.c`).
+- **Casos de 2 a 5 elementos** (`sort_3`, `sort_5`).
+- **Estrategia adaptativa:** integración de `select_strat.c` con los umbrales de
+  `disorder_level`.
+- **Bonus:** implementación del `checker`, adaptación del `get_next_line`,
+  revisión y pruebas de los casos de error.
+- **Makefile.**
+
+### Trabajo de lerodrig
+
+- **Estructura de datos:** definición de `t_node`/`t_stack`, construcción de la
+  lista doble de A y creación y liberación de las pilas (`init_stack.c`).
+- **Movimiento `push`** (`push.c`).
+- **Estrategia complex (Radix)** (`algo_complex.c`).
+- **Modo `--bench`:** métricas y desglose de operaciones por `stderr`
+  (`bench.c`, `bench_utils.c`).
+- **Umbrales de desorden compartidos** entre el benchmark y la estrategia
+  adaptativa (`disorder_level`).
+- **README.**
+
+## Bonus: `checker`
+ 
+`checker` es un programa independiente que **comprueba** si una lista de
+operaciones ordena una pila. Se compila con `make bonus` y es el complemento
+natural de `push_swap`: el uno genera las instrucciones y el otro las verifica.
+ 
+### Uso
+ 
+Recibe la pila A como argumentos (el primero queda en la cima) y lee las
+instrucciones de `stdin`, una por línea, hasta el final de la entrada:
+ 
+```sh
+$ ./checker 3 2 1 0
+rra
+pb
+sa
+rra
+pa
+OK                      # (Ctrl+D tras la última instrucción)
+ 
+$ ./checker 3 2 1 0
+sa
+rra
+pb
+KO
+ 
+$ ./checker 3 2 one 0
+Error
+$ ./checker "" 1
+Error
+```
+ 
+Y combinado con `push_swap`:
+ 
+```sh
+ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker $ARG        # OK
+ARG="4 67 3 87 23"; ./push_swap --complex $ARG | ./checker $ARG
+```
+
+### Salidas
+ 
+| Situación | Salida | Stream |
+|-----------|--------|--------|
+| A ordenada de menor a mayor **y** B vacía | `OK` | stdout |
+| Cualquier otro resultado | `KO` | stdout |
+| Argumento no entero, fuera del rango de `int`, duplicado o vacío (`""`) | `Error` | stderr |
+| Instrucción que no existe o mal escrita (`"sa "`, `"SA"`, `"saa"`, línea vacía) | `Error` | stderr |
+| Sin argumentos | nada | — |
+ 
+Una pila que **ya está ordenada** sin instrucciones da `OK` (no se omite), igual que una sola cifra (`./checker 5`).
+ 
+Del proyecto base se reutilizan el parseo, el cálculo de índices,
+la creación de la lista y los 11 movimientos; el checker solo añade la lectura de instrucciones, su reconocimiento y la comprobación final.
+
 ## Recursos
 
 ### Subject de `push_swap` de 42:
@@ -203,6 +310,9 @@ Este cálculo se hace internamente sobre un array antes de empezar. No gasta mov
 
 ### libft:
 Biblioteca propia incluida en el repositorio, utilizada para funciones auxiliares.
+
+### get_next_line:
+Reutilizamos el proyecto *get_next_line* para leer el contenido introducido por el usuario línea a línea. Permite al programa *checker* recibir y procesar cada instrucción de forma individual, confirmando si la pila final es correcta y si el usuario ha terminado con una secuencia válida.
 
 ### Uso de inteligencia artificial: 
 Hemos usado la IA como apoyo para que nos explique algunos conceptos y resolver dudas sobre:
