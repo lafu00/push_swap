@@ -96,7 +96,7 @@ int	main(int argc, char **argv)
 	if (!temp)
 		return (write(2, "Error\n", 6), 1);
 	disorder = calc_disorder(temp, size);
-	if (disorder == 0.0)
+	if (disorder == 0.0 && flag < 10)
 		return (free(temp), 0);
 	stack = build_program(temp, size, flag, disorder);
 	if (!stack)
